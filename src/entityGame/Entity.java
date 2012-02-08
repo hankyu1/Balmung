@@ -1,5 +1,6 @@
 package entityGame;
 
+import java.awt.Rectangle;
 import java.util.LinkedList;
 
 
@@ -12,7 +13,13 @@ public interface Entity {
 	
 	public Component getComponent(String id);
 	
-	public void update(EntityGame eg, int delta);
+	public Rectangle getBoundingBox();
 	
-	public void render(EntityGame eg);
+	public String getId();
+	
+	public void setId();
+	
+	public void update();
+	
+	public void render();
 }
