@@ -22,7 +22,9 @@ public abstract class EntityGame extends JFrame implements GameLoop{
 	private BufferStrategy bf;// = this.getBufferStrategy();
 	
 	// scenes
-	private LinkedList<Entity> scenes;
+	private LinkedList<LinkedList<Entity>> scenes;
+	private LinkedList<Entity> currentScene;
+	GridBox gb;
 	
 	// camera
 	private Rectangle Camera;
@@ -37,8 +39,10 @@ public abstract class EntityGame extends JFrame implements GameLoop{
 	// initialize game
 	public void init(EntityGame eg) {
 		bf = this.getBufferStrategy();
-		scenes = new LinkedList<Entity>();
+		scenes = new LinkedList<LinkedList<Entity>>();
+		currentScene = scenes.get(0);
 		Camera = new Rectangle(new Dimension(width, height));
+		gb = new GridBox(new Dimension(width,height));
 	}
 	/*
 	// update game
@@ -96,6 +100,7 @@ public abstract class EntityGame extends JFrame implements GameLoop{
 			double now = System.nanoTime();
 			int updateCount = 0;
 			
+			// update entities
 			while(now - lastUpdateTime > TIME_BETWEEN_UPDATES && updateCount < MAX_UPDATES_BEFORE_RENDER) {
 				updateGame();
 				lastUpdateTime += TIME_BETWEEN_UPDATES;
@@ -104,6 +109,8 @@ public abstract class EntityGame extends JFrame implements GameLoop{
 			if(lastUpdateTime - now > TIME_BETWEEN_UPDATES) {
 				lastUpdateTime = now - TIME_BETWEEN_UPDATES;
 			}
+			
+			// render game
 			float interpolation = Math.min(1.0f, (float)((now - lastUpdateTime) / TIME_BETWEEN_UPDATES));
 			drawGame(interpolation);
 			lastRenderTime = now;
@@ -124,12 +131,18 @@ public abstract class EntityGame extends JFrame implements GameLoop{
 		}
 	}
 	
+	// update 
 	private void updateGame() {
+		
+		// get new grid for collision detection
+		gb.addToGrid(currentScene);
+		
 		// update all entities in current scene
-		for(Entity e : scenes)
+		for(Entity e : currentScene)
 			e.update();
 	}
 	
+	// render
 	private void drawGame(float interpolation) {
 		// draw entities
 		Graphics g = null;
@@ -137,7 +150,7 @@ public abstract class EntityGame extends JFrame implements GameLoop{
 			g = bf.getDrawGraphics();
 			
 			// draw on g
-			for(Entity e : scenes) {
+			for(Entity e : currentScene) {
 				// only render the entity that is on camera
 				if(e.getBoundingBox().intersects(Camera)) {
 					e.render();
@@ -154,6 +167,8 @@ public abstract class EntityGame extends JFrame implements GameLoop{
 		
 		Toolkit.getDefaultToolkit().sync();
 	}
+	
+	// switch scene
 	
 	
 	// set camera size
