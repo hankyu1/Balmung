@@ -1,11 +1,13 @@
 package entityGame;
 
+import java.awt.Color;
+
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
-import java.util.Date;
 import java.util.LinkedList;
 
 import javax.swing.JFrame;
@@ -15,19 +17,19 @@ public abstract class EntityGame extends JFrame implements GameLoop{
 	private String title;
 	private int width, height;
 	private long lastFrame;
-	private boolean gameRunning = false;
+	protected boolean gameRunning = false;
 	private int frameCount = 0;
 	private int fps = 60;
 	
 	private BufferStrategy bf;// = this.getBufferStrategy();
 	
 	// scenes
-	private LinkedList<LinkedList<Entity>> scenes;
-	private LinkedList<Entity> currentScene;
-	GridBox gb;
+	protected LinkedList<LinkedList<Entity>> scenes;// = new LinkedList<LinkedList<Entity>>();
+	protected LinkedList<Entity> currentScene;
+	protected GridBox gb;
 	
 	// camera
-	private Rectangle Camera;
+	protected Rectangle Camera;
 	
 	// constructor
 	public EntityGame(String title, int width, int height) {
@@ -38,12 +40,15 @@ public abstract class EntityGame extends JFrame implements GameLoop{
 	
 	// initialize game
 	public void init(EntityGame eg) {
-		bf = this.getBufferStrategy();
+		createBufferStrategy(2);
+		bf = getBufferStrategy();
+		//System.out.println("bf: " + bf.toString());
 		scenes = new LinkedList<LinkedList<Entity>>();
-		currentScene = scenes.get(0);
+		//currentScene = scenes.get(0);
 		Camera = new Rectangle(new Dimension(width, height));
 		gb = new GridBox(new Dimension(width,height));
 	}
+	
 	/*
 	// update game
 	public void update(EntityGame eg, int delta) {
@@ -60,16 +65,24 @@ public abstract class EntityGame extends JFrame implements GameLoop{
 		setTitle(title);
 		
 		// set up the frame
+		setPreferredSize(new Dimension(width,height));
 		getContentPane().setPreferredSize(new Dimension(width,height));
 		pack();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		
 		// initialize and load game content
-		init();
+		// initialize game frame
+		init(this);
 		
+		// load custom content
+		init();
+		currentScene = scenes.get(0);
+
 		// game loop
 		//gameLoop();
+		// start game
+		gameRunning = true;
 		runGameLoop();
 	}
 	
@@ -139,30 +152,35 @@ public abstract class EntityGame extends JFrame implements GameLoop{
 		
 		// update all entities in current scene
 		for(Entity e : currentScene)
-			e.update();
+			e.update(this);
 	}
 	
 	// render
 	private void drawGame(float interpolation) {
 		// draw entities
-		Graphics g = null;
+		Graphics2D g = null;
 		try {
-			g = bf.getDrawGraphics();
+			g = (Graphics2D) bf.getDrawGraphics();
+			g.setColor(Color.WHITE);
+			g.fillRect(0, 0, width, height);
+			
+			//translate camera
+			g.translate(-Camera.x, -Camera.y);
 			
 			// draw on g
 			for(Entity e : currentScene) {
 				// only render the entity that is on camera
 				if(e.getBoundingBox().intersects(Camera)) {
-					e.render();
+					e.render(g);
 				}
 			}
-			g.copyArea(Camera.x, Camera.y, Camera.width, Camera.height, 0, 0);
 			
+			//g.copyArea(Camera.x, Camera.y, Camera.width, Camera.height, 0, 0);
+			//System.out.println("Camera Position: (" + Camera.x + "," + Camera.y + ")");
 		}
 		finally {
 			g.dispose();
 		}
-		
 		bf.show();
 		
 		Toolkit.getDefaultToolkit().sync();

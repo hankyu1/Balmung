@@ -1,5 +1,7 @@
 package entityGame;
 
+import java.awt.Graphics;
+
 public interface Component {
 	
 	public String getId();
@@ -8,5 +10,5 @@ public interface Component {
 	
 	public void update(EntityGame eg, int delta);
 	
-	public void render(EntityGame eg);
+	public void render(Graphics g, Entity e);
 }
