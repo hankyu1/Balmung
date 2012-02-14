@@ -16,12 +16,14 @@ public class Test extends EntityGame{
 		// TODO Auto-generated method stub
 		
 		
-		Box b = new Box("Box", 0, 100, 28, 31, "src/img/box.jpg");
+		Box b1 = new Box("Box", 0, 100, 28, 31, "src/img/box.jpg"),
+			b2 = new Box("Box", 50, 100, 28, 31, "src/img/box.jpg");
 		
 		
 		
 		LinkedList<Entity> testScene = new LinkedList<Entity>();
-		testScene.add(b);
+		testScene.add(b1);
+		testScene.add(b2);
 		
 		scenes.add(testScene);
 	}

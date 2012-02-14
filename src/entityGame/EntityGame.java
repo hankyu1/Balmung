@@ -203,7 +203,7 @@ public abstract class EntityGame extends JFrame implements GameLoop{
 		Camera.y = y - Camera.height/2;
 	}
 	
-	// collision detection with quad tree
+	// collision detection with grid
 	public boolean collisionDetection(Entity thisEntity, Entity thatEntity) {
 		boolean hit = false;
 		
@@ -213,6 +213,10 @@ public abstract class EntityGame extends JFrame implements GameLoop{
 		return hit;
 	}
 	
+	// get collision list
+	public GridBox getGB() {
+		return gb;
+	}
 	
 	/*
 	private long getTime() {
