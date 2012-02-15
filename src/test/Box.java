@@ -1,6 +1,6 @@
 package test;
 
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -12,7 +12,6 @@ import javax.imageio.ImageIO;
 
 import entityGame.Entity;
 import entityGame.EntityGame;
-import entityGame.UIComponent;
 
 public class Box implements Entity {
 
@@ -52,8 +51,7 @@ public class Box implements Entity {
 		// TODO Auto-generated method stub
 		
 		bound.x += velocity;
-		eg.targetCamera(bound.x, bound.y);
-		
+		//eg.targetCamera(bound.x, bound.y);
 		
 		list = eg.getGB().getGridList(this);
 		
@@ -73,7 +71,7 @@ public class Box implements Entity {
 	}
 
 	@Override
-	public void render(Graphics g) {
+	public void render(Graphics2D g) {
 		// TODO Auto-generated method stub
 		g.drawImage(img, bound.x, bound.y, null);
 	}

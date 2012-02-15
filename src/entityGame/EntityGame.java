@@ -2,10 +2,9 @@ package entityGame;
 
 import java.awt.Color;
 
+
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import java.util.LinkedList;
@@ -248,6 +247,10 @@ public abstract class EntityGame extends JFrame implements GameLoop{
 		return gb;
 	}
 
+	// get fps
+	public int getFPS() {
+		return fps;
+	}
 	
 	/*
 	private long getTime() {

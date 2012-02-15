@@ -16,7 +16,7 @@ public class Test extends EntityGame{
 		// TODO Auto-generated method stub
 		
 		
-		Box b = new Box("Box", 0, 100, 28, 31, 10, "src/img/box.jpg");
+		Box b = new Box("Box", 10, 100, 28, 31, 1, "src/img/box.jpg");
 			//b2 = new Box("Box", 50, 100, 28, 31, 5, "src/img/box.jpg");
 		UITest uTest = new UITest("Test", 20, 50, 100, 100, "Hank");
 		

@@ -1,8 +1,7 @@
 package entityGame;
 
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.util.LinkedList;
 
 
 public interface Entity {
@@ -22,5 +21,5 @@ public interface Entity {
 	
 	public void update(EntityGame eg);
 	
-	public void render(Graphics g);
+	public void render(Graphics2D g);
 }
