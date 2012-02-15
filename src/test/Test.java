@@ -16,13 +16,15 @@ public class Test extends EntityGame{
 		// TODO Auto-generated method stub
 		
 		
-		Box b = new Box("Box", 10, 100, 28, 31, 1, "src/img/box.jpg");
+		Box b1 = new Box("Box1", 0, 0, 28, 31, 1, "src/img/box.jpg"),
+			b2 = new Box("Box2", 100, 0, 28, 31, 5, "src/img/box.jpg");
 			//b2 = new Box("Box", 50, 100, 28, 31, 5, "src/img/box.jpg");
-		UITest uTest = new UITest("Test", 20, 50, 100, 100, "Hank");
+		UITest uTest = new UITest("Test", 0, 100, 100, 100, "Hank");
 		
 		
 		LinkedList<Entity> testScene = new LinkedList<Entity>();
-		testScene.add(b);
+		testScene.add(b1);
+		testScene.add(b2);
 		testScene.add(uTest);
 		//testScene.add(b2);
 		

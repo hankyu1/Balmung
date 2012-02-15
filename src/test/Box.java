@@ -55,9 +55,20 @@ public class Box implements Entity {
 		
 		list = eg.getGB().getGridList(this);
 		
+		Rectangle thisRect, thatRect;
+		
 		for(LinkedList<Entity> le : list)
 			for(Entity e : le) {
-				if(!e.equals(this) && eg.collisionDetection(e, this) && e instanceof Box) {
+				if(!e.equals(this) && 
+				   eg.collisionDetection(thisRect = new Rectangle(this.getBoundingBox().x + velocity, 
+																  this.getBoundingBox().y, 
+																  this.getBoundingBox().width, 
+																  this.getBoundingBox().height), 
+										 thatRect = new Rectangle(e.getBoundingBox().x, 
+															   	  e.getBoundingBox().y, 
+										   		 				  e.getBoundingBox().width, 
+															   	  e.getBoundingBox().height)) && 
+				   e instanceof Box) {
 					velocity = - velocity;
 				}
 			}

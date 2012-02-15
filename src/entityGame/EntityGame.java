@@ -5,6 +5,7 @@ import java.awt.Color;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import java.util.LinkedList;
@@ -46,30 +47,25 @@ public abstract class EntityGame extends JFrame implements GameLoop{
 		scenes = new LinkedList<LinkedList<Entity>>();
 		UI = new LinkedList<Entity>();
 		//currentScene = scenes.get(0);
+
+		getContentPane().setPreferredSize(new Dimension(width,height));
+		System.out.println("RootPanel: " + this.getRootPane().getLocation().toString());
+		pack();
+		getContentPane().setLocation(getRootPane().getX(), getRootPane().getY());
+		
 		Camera = new Camera(0, 0, width, height);
-		System.out.println("CameraSize:" + Camera.toString());
+		System.out.println("CameraSize: " + Camera.toString());
+		System.out.println("WindowSize: " + this.getRootPane().getLocation().toString());
+		System.out.println("PanelSize: " + this.getContentPane().getLocation().toString());
 		gb = new GridBox(new Dimension(width,height));
 	}
 	
-	/*
-	// update game
-	public void update(EntityGame eg, int delta) {
-		
-	};
-	
-	// render game content
-	public void render(){
-		
-	};
-	*/
 	// start game
 	public void start() {
 		setTitle(title);
 		
 		// set up the frame
-		setPreferredSize(new Dimension(width,height));
-		getContentPane().setPreferredSize(new Dimension(width,height));
-		pack();
+		//setPreferredSize(new Dimension(width,height));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		
@@ -167,10 +163,10 @@ public abstract class EntityGame extends JFrame implements GameLoop{
 		try {
 			g = (Graphics2D) bf.getDrawGraphics();
 			g.setColor(Color.WHITE);
-			g.fillRect(0, 0, width, height);
+			g.fillRect(this.getRootPane().getX(), this.getRootPane().getY(), this.getRootPane().getWidth(), this.getRootPane().getHeight());
 			
 			//translate camera
-			g.translate(-Camera.x, -Camera.y);
+			g.translate(-Camera.x+getRootPane().getX(), -Camera.y+getRootPane().getY());
 			
 			// draw on g
 			for(Entity e : currentScene) {
@@ -233,10 +229,10 @@ public abstract class EntityGame extends JFrame implements GameLoop{
 	}
 	
 	// collision detection with grid
-	public boolean collisionDetection(Entity thisEntity, Entity thatEntity) {
+	public boolean collisionDetection(Rectangle thisEntity, Rectangle thatEntity) {
 		boolean hit = false;
 		
-		if(thisEntity.getBoundingBox().intersects(thatEntity.getBoundingBox()))
+		if(thisEntity.intersects(thatEntity))
 			hit = true;
 		
 		return hit;
