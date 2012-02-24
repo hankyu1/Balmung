@@ -32,12 +32,6 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
 		return currentState[button] && !nextState[button];
 	}
 
-	public void tick() {
-		for (int i = 0; i < currentState.length; i++) {
-			currentState[i] = nextState[i];
-		}
-	}
-
 	public void releaseAll() {
 		for (int i = 0; i < nextState.length; i++) {
 			nextState[i] = false;
@@ -57,6 +51,16 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
 			x = mousePosition.x;
 			y = mousePosition.y;
 		}
+	}
+	
+	public void tick() {
+		for (int i = 0; i < currentState.length; i++) {
+			currentState[i] = nextState[i];
+		}
+	}
+	
+	public boolean[] getCurrentState() {
+		return currentState;
 	}
 	
 	@Override

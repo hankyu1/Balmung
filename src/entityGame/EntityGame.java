@@ -170,6 +170,9 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 	// update 
 	private void updateGame() {
 		
+		// tick for mouseHandler
+		mouseHandler.tick();
+		
 		// get new grid for collision detection
 		gb.addToGrid(currentScene);
 		
@@ -280,6 +283,10 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 	
 	public InputHandler getInputHandler() {
 		return inputHandler;
+	}
+	
+	public MouseHandler getMouseHandler() {
+		return mouseHandler;
 	}
 	
 	/*

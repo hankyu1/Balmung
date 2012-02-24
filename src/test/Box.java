@@ -7,6 +7,7 @@ import java.awt.Toolkit;
 import java.applet.*;
 
 import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -94,14 +95,22 @@ public class Box implements Entity {
 		
 		list.clear();
 		
+		eg.targetCamera(bound.x, bound.y);
+		
 		// test keyboard input
 		if(eg.getInputHandler().hasInput()) {
-			FindUp:
+			FindKey:
 				for(Key k : eg.getInputHandler().getInputList()) {
 					if(k != null && k.getName() == "UP" && k.isPressed())
 						System.out.println("Name From Box: " + k.getName());
-					break FindUp;
+					break FindKey;
 				}
+		}
+		
+		// test mouse input
+		
+		if(eg.getMouseHandler().getCurrentState()[MouseEvent.BUTTON1]) {
+			System.out.println("Left Clicked...");
 		}
 	}
 
