@@ -40,7 +40,7 @@ public class UITest implements Entity, UIComponent {
 	}
 
 	@Override
-	public void render(Graphics2D g) {
+	public void render(Graphics2D g, EntityGame eg) {
 		// TODO Auto-generated method stub
 		//System.out.println(txt);
 		g.setColor(Color.BLACK);

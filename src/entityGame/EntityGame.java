@@ -3,6 +3,7 @@ package entityGame;
 import java.awt.Color;
 
 
+import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -10,9 +11,10 @@ import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import java.util.LinkedList;
 
+import javax.swing.JApplet;
 import javax.swing.JFrame;
 
-public abstract class EntityGame extends JFrame implements GameLoop{
+public abstract class EntityGame extends JApplet implements GameLoop{
 	
 	private String title;
 	private int width, height;
@@ -20,6 +22,7 @@ public abstract class EntityGame extends JFrame implements GameLoop{
 	protected boolean gameRunning = false;
 	private int frameCount = 0;
 	private int fps = 60;
+	private Canvas drawArea;
 	
 	private BufferStrategy bf;// = this.getBufferStrategy();
 	
@@ -32,6 +35,9 @@ public abstract class EntityGame extends JFrame implements GameLoop{
 	// camera
 	protected Camera Camera;
 	
+	// input handle
+	protected InputHandler inputHandler = new InputHandler();
+	
 	// constructor
 	public EntityGame(String title, int width, int height) {
 		this.title = title;
@@ -41,32 +47,48 @@ public abstract class EntityGame extends JFrame implements GameLoop{
 	
 	// initialize game
 	public void init(EntityGame eg) {
-		createBufferStrategy(2);
-		bf = getBufferStrategy();
+		
+		getContentPane().setVisible(true);
+		getContentPane().setPreferredSize(new Dimension(width,height));
+		//System.out.println("RootPanel: " + this.getRootPane().getLocation().toString());
+		//pack();
+		getContentPane().setLocation(getRootPane().getX(), getRootPane().getY());
+		
+		
+		this.setIgnoreRepaint(true);
+		drawArea = new Canvas();
+		
+		drawArea.setSize(width,height);
+		drawArea.setVisible(true);
+		System.out.println(this.isShowing());
+		getContentPane().add(drawArea);
+		
+		drawArea.createBufferStrategy(2);
+		bf = drawArea.getBufferStrategy();
 		//System.out.println("bf: " + bf.toString());
-		scenes = new LinkedList<LinkedList<Entity>>();
+		//scenes = new LinkedList<LinkedList<Entity>>();
 		UI = new LinkedList<Entity>();
 		//currentScene = scenes.get(0);
 
-		getContentPane().setPreferredSize(new Dimension(width,height));
-		System.out.println("RootPanel: " + this.getRootPane().getLocation().toString());
-		pack();
-		getContentPane().setLocation(getRootPane().getX(), getRootPane().getY());
+		
 		
 		Camera = new Camera(0, 0, width, height);
 		System.out.println("CameraSize: " + Camera.toString());
 		System.out.println("WindowSize: " + this.getRootPane().getLocation().toString());
 		System.out.println("PanelSize: " + this.getContentPane().getLocation().toString());
 		gb = new GridBox(new Dimension(width,height));
+		
+		drawArea.addKeyListener(inputHandler);
+		drawArea.requestFocus();
 	}
 	
 	// start game
 	public void start() {
-		setTitle(title);
+		//setTitle(title);
 		
 		// set up the frame
 		//setPreferredSize(new Dimension(width,height));
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 		
 		// initialize and load game content
@@ -152,6 +174,8 @@ public abstract class EntityGame extends JFrame implements GameLoop{
 		// update all entities in current scene
 		for(Entity e : currentScene)
 			e.update(this);
+		
+		inputHandler.cleanList();
 	}
 	
 	// render
@@ -178,7 +202,7 @@ public abstract class EntityGame extends JFrame implements GameLoop{
 				
 				// only render the entity that is on camera
 				else if(e.getBoundingBox().intersects(Camera)) {
-						e.render(g);
+						e.render(g, this);
 				}
 			}
 			
@@ -192,7 +216,7 @@ public abstract class EntityGame extends JFrame implements GameLoop{
 				e.getBoundingBox().y += Camera.y;
 				
 				
-				e.render(g);
+				e.render(g, this);
 				
 				e.getBoundingBox().x = offsetX;
 				e.getBoundingBox().y = offsetY;
@@ -246,6 +270,14 @@ public abstract class EntityGame extends JFrame implements GameLoop{
 	// get fps
 	public int getFPS() {
 		return fps;
+	}
+	
+	public Canvas getCanvas() {
+		return drawArea;
+	}
+	
+	public InputHandler getInputHandler() {
+		return inputHandler;
 	}
 	
 	/*

@@ -2,32 +2,46 @@ package test;
 
 import java.awt.Graphics2D;
 
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.applet.*;
+
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 
 import entityGame.Entity;
 import entityGame.EntityGame;
+import entityGame.Key;
 
 public class Box implements Entity {
 
-	protected BufferedImage img;
+	//protected BufferedImage img;
+	protected Image img;
 	protected String id;
 	protected Rectangle bound;
 	protected LinkedList<LinkedList<Entity>> list; 
 	protected int velocity;
 	
-	public Box(String id, int x, int y, int w, int h, int velocity, String imgURL) {
+	public Box(String id, int x, int y, int w, int h, int velocity, String imgURL, EntityGame eg) {
 		this.id = id;
 		bound = new Rectangle(x, y, w, h);
 		this.velocity = velocity;
 		try {
-			img = ImageIO.read(new File(imgURL));
-		} catch (IOException e) {
+			//img = ImageIO.read(new File(imgURL));
+			//img = Toolkit.getDefaultToolkit().getImage(imgURL);
+			//URL url = getClass().getResource(imgURL);
+			//System.out.println("imgURL: " + imgURL);
+			//System.out.println("Toolkit: " + eg.getToolkit().toString());
+			//img = eg.getToolkit().getImage(imgURL);//getImage(eg.getDocumentBase(), imgURL);
+			img = eg.getImage(eg.getDocumentBase(), imgURL);
+			System.out.println("ImageInfo: " + img.getHeight(eg));
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -79,12 +93,22 @@ public class Box implements Entity {
 			
 		
 		list.clear();
+		
+		if(eg.getInputHandler().hasInput()) {
+			FindUp:
+				for(Key k : eg.getInputHandler().getInputList()) {
+					if(k != null && k.getName() == "UP" && k.isPressed())
+						System.out.println("Name From Box: " + k.getName());
+					break FindUp;
+				}
+		}
 	}
 
 	@Override
-	public void render(Graphics2D g) {
+	public void render(Graphics2D g, EntityGame eg) {
 		// TODO Auto-generated method stub
-		g.drawImage(img, bound.x, bound.y, null);
+		
+		g.drawImage(img, bound.x, bound.y, eg.getCanvas());
 	}
 	
 }
