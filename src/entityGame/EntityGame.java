@@ -37,6 +37,7 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 	
 	// input handle
 	protected InputHandler inputHandler = new InputHandler();
+	protected MouseHandler mouseHandler = new MouseHandler();
 	
 	// constructor
 	public EntityGame(String title, int width, int height) {
@@ -63,7 +64,7 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 		System.out.println(this.isShowing());
 		getContentPane().add(drawArea);
 		
-		drawArea.createBufferStrategy(2);
+		drawArea.createBufferStrategy(3);
 		bf = drawArea.getBufferStrategy();
 		//System.out.println("bf: " + bf.toString());
 		//scenes = new LinkedList<LinkedList<Entity>>();
@@ -73,12 +74,13 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 		
 		
 		Camera = new Camera(0, 0, width, height);
-		System.out.println("CameraSize: " + Camera.toString());
-		System.out.println("WindowSize: " + this.getRootPane().getLocation().toString());
-		System.out.println("PanelSize: " + this.getContentPane().getLocation().toString());
+		//System.out.println("CameraSize: " + Camera.toString());
+		//System.out.println("WindowSize: " + this.getRootPane().getLocation().toString());
+		//System.out.println("PanelSize: " + this.getContentPane().getLocation().toString());
 		gb = new GridBox(new Dimension(width,height));
 		
 		drawArea.addKeyListener(inputHandler);
+		drawArea.addMouseListener(mouseHandler);
 		drawArea.requestFocus();
 	}
 	

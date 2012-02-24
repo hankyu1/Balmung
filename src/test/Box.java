@@ -94,6 +94,7 @@ public class Box implements Entity {
 		
 		list.clear();
 		
+		// test keyboard input
 		if(eg.getInputHandler().hasInput()) {
 			FindUp:
 				for(Key k : eg.getInputHandler().getInputList()) {

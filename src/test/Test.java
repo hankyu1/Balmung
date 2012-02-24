@@ -18,19 +18,19 @@ public class Test extends EntityGame{
 	public void init() {
 		// TODO Auto-generated method stub
 		
-		Box b1 = new Box("Box1", 0, 0, 28, 31, 1, "http://dl.dropbox.com/u/27745240/applet/img/box.jpg", this),
-			b2 = new Box("Box2", 100, 0, 28, 31, 5, "http://dl.dropbox.com/u/27745240/applet/img/box.jpg", this);
+		Box b1 = new Box("Box1", 0, 0, 28, 31, 1, "http://dl.dropbox.com/u/27745240/applet/img/box.jpg", this);
+			//b2 = new Box("Box2", 100, 0, 28, 31, 5, "http://dl.dropbox.com/u/27745240/applet/img/box.jpg", this);
 			//b2 = new Box("Box", 50, 100, 28, 31, 5, "src/img/box.jpg");
 		UITest uTest = new UITest("Test", 0, 100, 100, 100, "Hank");
 		
 		
 		LinkedList<Entity> testScene = new LinkedList<Entity>();
 		testScene.add(b1);
-		testScene.add(b2);
+		//testScene.add(b2);
 		testScene.add(uTest);
 		//testScene.add(b2);
 		scenes = new LinkedList<LinkedList<Entity>>();
-		System.out.println("testScene: "+testScene.size());
+		//System.out.println("testScene: "+testScene.size());
 		
 		scenes.add(testScene);
 		// map keys
