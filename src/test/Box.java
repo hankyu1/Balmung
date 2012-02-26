@@ -73,7 +73,7 @@ public class Box implements Entity {
 	public void update(EntityGame eg) {
 		// TODO Auto-generated method stub
 		
-		//bound.x += velocity;
+		bound.x += velocity;
 		//eg.targetCamera(bound.x, bound.y);
 		
 		list = eg.getGB().getGridList(this);
