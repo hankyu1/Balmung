@@ -39,6 +39,9 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 	protected InputHandler inputHandler = new InputHandler();
 	protected MouseHandler mouseHandler = new MouseHandler();
 	
+	// resourcesmanager
+	protected ResourcesManager resourcesManager = ResourcesManager.getInstance();
+	
 	// constructor
 	public EntityGame(String title, int width, int height) {
 		this.title = title;
@@ -72,16 +75,20 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 		//currentScene = scenes.get(0);
 
 		
-		
+		// add camera
 		Camera = new Camera(0, 0, width, height);
 		//System.out.println("CameraSize: " + Camera.toString());
 		//System.out.println("WindowSize: " + this.getRootPane().getLocation().toString());
 		//System.out.println("PanelSize: " + this.getContentPane().getLocation().toString());
 		gb = new GridBox(new Dimension(width,height));
 		
+		// add listener
 		drawArea.addKeyListener(inputHandler);
 		drawArea.addMouseListener(mouseHandler);
 		drawArea.requestFocus();
+		
+		// set resourcesManager
+		
 	}
 	
 	// start game
@@ -289,6 +296,9 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 		return mouseHandler;
 	}
 	
+	public ResourcesManager getResourcesManager() {
+		return resourcesManager;
+	}
 	/*
 	private long getTime() {
 		return System.nanoTime() / 1000000; //new Date().getTime();

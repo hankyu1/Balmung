@@ -1,9 +1,10 @@
 package test;
 
+import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 
-import javax.swing.filechooser.FileSystemView;
 
 import entityGame.*;
 
@@ -17,11 +18,23 @@ public class Test extends EntityGame{
 	@Override
 	public void init() {
 		// TODO Auto-generated method stub
+		// load resources first
 		
-		Box b1 = new Box("Box1", 0, 0, 28, 31, 1, "http://dl.dropbox.com/u/27745240/applet/img/box.jpg", this);
+		// image resources
+		getResourcesManager().addImage("Box", getImage(getDocumentBase(), "http://dl.dropbox.com/u/27745240/applet/img/box.jpg"));
+		
+		// sprite resources
+		getResourcesManager().addSprite("BoxSprite", new Sprite(1000,
+																getImage(getDocumentBase(), "http://dl.dropbox.com/u/27745240/applet/img/boxSprite.jpg"), 
+																new Dimension(28, 31), 
+																new Point(0, 0), 
+																2));
+		
+		//Box b1 = new Box("Box1", 0, 0, 28, 31, 1, getResourcesManager().getImageResources().get("Box"), this);
+		Box b1 = new Box("Box1", 100, 100, 28, 31, 1, getResourcesManager().getSpriteResources().get("BoxSprite"), this);
 			//b2 = new Box("Box2", 100, 0, 28, 31, 5, "http://dl.dropbox.com/u/27745240/applet/img/box.jpg", this);
 			//b2 = new Box("Box", 50, 100, 28, 31, 5, "src/img/box.jpg");
-		UITest uTest = new UITest("Test", 0, 100, 100, 100, "Hank");
+		UITest uTest = new UITest("Test", 0, 100, 100, 100, "Balmung Test");
 		
 		
 		LinkedList<Entity> testScene = new LinkedList<Entity>();
