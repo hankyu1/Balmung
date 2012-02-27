@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
@@ -298,6 +299,10 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 	
 	public ResourcesManager getResourcesManager() {
 		return resourcesManager;
+	}
+	
+	public Point getMousePosition() {
+		return new Point(Camera.x+drawArea.getMousePosition().x, Camera.y+drawArea.getMousePosition().y);
 	}
 	/*
 	private long getTime() {

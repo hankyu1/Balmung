@@ -47,7 +47,6 @@ public class Box implements Entity {
 			//img = eg.getToolkit().getImage(imgURL);//getImage(eg.getDocumentBase(), imgURL);
 			//img = eg.getImage(eg.getDocumentBase(), imgURL);
 			this.spriteSheet = spriteSheet;
-			//System.out.println("ImageInfo: " + img.getHeight(eg));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -118,7 +117,12 @@ public class Box implements Entity {
 		// test mouse input
 		
 		if(eg.getMouseHandler().getCurrentState()[MouseEvent.BUTTON1]) {
-			System.out.println("Left Clicked...");
+			System.out.println("Box Bounding: " + bound.getBounds().toString());
+			System.out.println("Clicked Position: " + eg.getMousePosition().toString());
+			if(bound.contains(eg.getMousePosition())) {
+				eg.targetCamera(bound.x+bound.width/2, bound.y+bound.height/2);
+				System.out.println("pressing box...");
+			}
 		}
 	}
 
@@ -134,7 +138,7 @@ public class Box implements Entity {
 		if(Math.toRadians(rotatingCount) >= Math.PI)
 			rotatingCount = 0;
 		rotatingCount += rotatingSide;
-		System.out.println("rotatingCount: " + rotatingCount);
+		//System.out.println("rotatingCount: " + rotatingCount);
 		
 		g.rotate(Math.toRadians(rotatingCount), bound.x+bound.width/2, bound.y+bound.height/2);
 		spriteSheet.drawSpriteFrame(g, new Point(bound.x, bound.y), eg.getCanvas());
