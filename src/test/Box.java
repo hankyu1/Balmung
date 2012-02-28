@@ -121,6 +121,7 @@ public class Box implements Entity {
 			System.out.println("Clicked Position: " + eg.getMousePosition().toString());
 			if(bound.contains(eg.getMousePosition())) {
 				eg.targetCamera(bound.x+bound.width/2, bound.y+bound.height/2);
+				eg.getResourcesManager().getSoundResources().get("BoxSound").playSound(bound.getLocation(), bound.getLocation());
 				System.out.println("pressing box...");
 			}
 		}

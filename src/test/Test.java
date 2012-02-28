@@ -3,6 +3,7 @@ package test;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.util.LinkedList;
 
 
@@ -29,6 +30,9 @@ public class Test extends EntityGame{
 																new Dimension(28, 31), 
 																new Point(0, 0), 
 																2));
+		
+		// music resources
+		getResourcesManager().addSound("BoxSound", new Sound("http://dl.dropbox.com/u/27745240/applet/sound/Boxing%20bag%20punches.wav", 10));
 		
 		//Box b1 = new Box("Box1", 0, 0, 28, 31, 1, getResourcesManager().getImageResources().get("Box"), this);
 		Box b1 = new Box("Box1", 100, 100, 28, 31, 1, getResourcesManager().getSpriteResources().get("BoxSprite"), this);

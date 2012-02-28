@@ -1,5 +1,6 @@
 package entityGame;
 
+import java.awt.Point;
 import java.awt.Rectangle;
 
 public class Camera extends Rectangle{
@@ -18,5 +19,9 @@ public class Camera extends Rectangle{
 	
 	public void setDimension(int w, int h) {
 		this.setSize(w, h);
+	}
+	
+	public Point getCenter() {
+		return this.getCenter();
 	}
 }
