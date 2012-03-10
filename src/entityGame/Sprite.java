@@ -14,15 +14,17 @@ public class Sprite {
 	private Dimension frameSize;
 	private Point startPoint;
 	private int frameCount;
+	private String spriteName;
 	
 	private long currentTime, nextDrawTime;
 	private Image SpriteSheet;
 	
-	public Sprite(long duration, Image SpriteSheet, Dimension frameSize, Point startPoint, int frameNum) {
+	public Sprite(String spriteName, long duration, Image SpriteSheet, Dimension frameSize, Point startPoint, int frameNum) {
 		this.duration = duration;
 		this.frameSize = frameSize;
 		this.frameNum = frameNum;
 		this.startPoint = startPoint;
+		this.spriteName = spriteName;
 		
 		currentTime = 0;
 		nextDrawTime = 0;
@@ -59,5 +61,13 @@ public class Sprite {
 					startPoint.x + frameCount*frameSize.width + frameSize.width, 
 					startPoint.y + frameSize.height, 
 					observer);
+	}
+	
+	public Image getSpriteSheet() {
+		return SpriteSheet;
+	}
+	
+	public String getSpriteName() {
+		return spriteName;
 	}
 }

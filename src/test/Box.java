@@ -39,13 +39,6 @@ public class Box implements Entity {
 		bound = new Rectangle(x, y, w, h);
 		this.velocity = velocity;
 		try {
-			//img = ImageIO.read(new File(imgURL));
-			//img = Toolkit.getDefaultToolkit().getImage(imgURL);
-			//URL url = getClass().getResource(imgURL);
-			//System.out.println("imgURL: " + imgURL);
-			//System.out.println("Toolkit: " + eg.getToolkit().toString());
-			//img = eg.getToolkit().getImage(imgURL);//getImage(eg.getDocumentBase(), imgURL);
-			//img = eg.getImage(eg.getDocumentBase(), imgURL);
 			this.spriteSheet = spriteSheet;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -54,6 +47,10 @@ public class Box implements Entity {
 		//list = new LinkedList<LinkedList<Entity>>();
 		
 		
+	}
+	
+	private Point getCenter() {
+		return new Point(getBoundingBox().x+getBoundingBox().width/2, getBoundingBox().y+getBoundingBox().height/2);
 	}
 	
 	@Override
@@ -120,8 +117,8 @@ public class Box implements Entity {
 			System.out.println("Box Bounding: " + bound.getBounds().toString());
 			System.out.println("Clicked Position: " + eg.getMousePosition().toString());
 			if(bound.contains(eg.getMousePosition())) {
-				eg.targetCamera(bound.x+bound.width/2, bound.y+bound.height/2);
-				eg.getResourcesManager().getSoundResources().get("BoxSound").playSound(bound.getLocation(), bound.getLocation());
+				//eg.targetCamera(bound.x+bound.width/2, bound.y+bound.height/2);
+				eg.getResourcesManager().getSoundResources().get("BoxSound").playSound(eg.getCamera().getCenter(), getCenter());
 				System.out.println("pressing box...");
 			}
 		}

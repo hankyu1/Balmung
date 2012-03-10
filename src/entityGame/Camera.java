@@ -10,7 +10,7 @@ public class Camera extends Rectangle{
 	}
 	
 	public Rectangle getBound() {
-		return this.getBound();
+		return this.getBounds();
 	}
 	
 	public void setPosition(int x, int y) {
@@ -22,6 +22,6 @@ public class Camera extends Rectangle{
 	}
 	
 	public Point getCenter() {
-		return this.getCenter();
+		return new Point(x+width/2, y+height/2);
 	}
 }

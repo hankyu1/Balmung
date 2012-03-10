@@ -10,6 +10,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
+import java.io.File;
 import java.util.LinkedList;
 
 import javax.swing.JApplet;
@@ -32,6 +33,7 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 	protected LinkedList<Entity> currentScene;
 	protected LinkedList<Entity> UI;
 	protected GridBox gb;
+	protected File gameFolder;
 	
 	// camera
 	protected Camera Camera;
@@ -89,7 +91,7 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 		drawArea.requestFocus();
 		
 		// set resourcesManager
-		
+		resourcesManager.setEG(this);
 	}
 	
 	// start game
@@ -106,7 +108,7 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 		init(this);
 		
 		// load custom content
-		init();
+		//init();
 		currentScene = scenes.get(0);
 
 		// game loop
@@ -303,6 +305,38 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 	
 	public Point getMousePosition() {
 		return new Point(Camera.x+drawArea.getMousePosition().x, Camera.y+drawArea.getMousePosition().y);
+	}
+	
+	public void setDirectory(String directory) {
+		// set directory for file caching
+		try {
+			gameFolder = new File(directory);
+			try{
+				if(!gameFolder.exists()) {
+					gameFolder.mkdir();
+					System.out.println("Directory Created");
+				}
+				else
+					System.out.println("Directory Already exist");
+			}
+			catch(Exception ex) {
+				System.out.println(ex.toString());
+			}
+			
+		}
+		catch(Exception ex) {
+			System.out.println(ex.toString());
+		}
+		
+		//System.out.println(getDirectory());
+	}
+	
+	public File getDirectory() {
+		return gameFolder;
+	}
+	
+	public Camera getCamera() {
+		return Camera;
 	}
 	/*
 	private long getTime() {

@@ -13,23 +13,25 @@ import javax.sound.sampled.FloatControl;
 
 
 public class Sound {
-	private Point centerPoint;
+	//private Point centerPoint;
 	private AudioInputStream audioInputStream = null;// = AudioSystem.getAudioInputStream(new)
 	private Clip clip;
-	private double distance, strength;
+	private double strength;
+	private double volume;
+	private FloatControl control;
+	private int framePos;
 	
-	public Sound(String URL, double strength) {
+	public Sound(URL URL, File file, double strength) {
 		
 		// strength of the sound
 		this.strength = strength;
 		
 		// set up music
 		try{
-			audioInputStream = AudioSystem.getAudioInputStream(new URL(URL));
-			/*
-			clip = AudioSystem.getClip();
-			clip.open(audioInputStream);
-			*/
+			if(URL != null)
+				audioInputStream = AudioSystem.getAudioInputStream(URL);
+			else
+				audioInputStream = AudioSystem.getAudioInputStream(file);
 		}
 		catch(Exception ex) {
 			// do nothing
@@ -39,22 +41,45 @@ public class Sound {
 	}
 	
 	public void playSound(Point HearingPoint, Point centerPoint) {
-		
-		double volume = HearingPoint.distance((Point2D) centerPoint) / strength;
-		
-		try {
-			clip = AudioSystem.getClip();
-			clip.open(audioInputStream);
-			FloatControl control = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-			control.setValue((float) volume);
-			clip.start();
+		double dis = HearingPoint.distance((Point2D) centerPoint);
+		if(dis <= strength) {
+			volume = (strength - HearingPoint.distance((Point2D) centerPoint)) / strength;
+			
+			try {
+				if(clip != null && clip.isRunning()) {
+					clip.stop();
+				}
+				if(clip == null) {
+					clip = AudioSystem.getClip();
+					clip.open(audioInputStream);
+				}
+				
+				control = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+				float keyVolume = (float) volume*(control.getMaximum()-control.getMinimum()) + control.getMinimum();
+				control.setValue(keyVolume);
+				System.out.println("Sound volume: " + keyVolume);
+				clip.setFramePosition(0);
+				clip.loop(0);
+			}
+			catch(Exception ex) {
+				System.out.println("Cant play music... \n" + ex.toString());
+			}
 		}
-		catch(Exception ex) {
-			System.out.println("Cant play music... \n" + ex.toString());
-		}
+		else
+			System.out.println("Cant hear music; object is too far away from you...");
 	}
 	
 	public void stopSound() {
 		clip.stop();
+	}
+	
+	public void pauseSound() {
+		framePos = clip.getFramePosition();
+		clip.stop();
+	}
+	
+	public void resumeSound() {
+		clip.setFramePosition(framePos);
+		clip.loop(0);
 	}
 }
