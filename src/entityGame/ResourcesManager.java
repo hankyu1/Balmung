@@ -69,7 +69,7 @@ public class ResourcesManager {
 		return SingletonHolder.instance;
 	}
 	
-	public void downloadResources(URL url, String DestDir, String fileName, int size) {
+	public void downloadResources(boolean overWrite, URL url, String DestDir, String fileName, int size) {
 		OutputStream os = null;
 		URLConnection uCon = null;
 		InputStream is = null;
@@ -78,7 +78,7 @@ public class ResourcesManager {
 		
 		try {
 			
-			if(!new File(DestDir+"\\"+fileName).exists()) {
+			if(!new File(DestDir+"\\"+fileName).exists() || overWrite) {
 				os = new BufferedOutputStream(new FileOutputStream(DestDir+"\\"+fileName));
 				uCon = url.openConnection();
 				is = uCon.getInputStream();
@@ -86,11 +86,14 @@ public class ResourcesManager {
 				while((ByteRead = is.read(buf)) != -1) {
 					os.write(buf, 0, ByteRead);
 					ByteWritten += ByteRead;
+					System.out.println(fileName+":" + ByteWritten);
 				}
-				System.out.println("Downloaded Successfully.");
+				System.out.println(fileName + " Downloaded Successfully.");
+				is.close();
+				os.close();
 			}
 			else
-				System.out.println("File already exist, don't need to download this file...");
+				System.out.println(fileName + " already exist, don't need to download this file...");
 			
 		}
 		catch(Exception ex) {

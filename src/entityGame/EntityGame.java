@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferStrategy;
 import java.io.File;
 import java.util.LinkedList;
@@ -242,6 +243,9 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 			//System.out.println("Camera Position: (" + Camera.x + "," + Camera.y + ")");
 		}
 		finally {
+			// draw camera center point
+			//g.draw(new Ellipse2D.Float(Camera.getCenter().x, Camera.getCenter().y, 5.0f, 5.0f));
+			
 			g.dispose();
 		}
 		
@@ -338,18 +342,4 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 	public Camera getCamera() {
 		return Camera;
 	}
-	/*
-	private long getTime() {
-		return System.nanoTime() / 1000000; //new Date().getTime();
-	}
-	
-	// time between each frame
-	private long getDelta() {
-		long time = getTime();
-		long delta = (time - lastFrame);
-		lastFrame = time;
-		
-		return delta;
-	}
-	*/
 }

@@ -9,6 +9,7 @@ import java.applet.*;
 
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -17,10 +18,12 @@ import java.util.Date;
 import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.Clip;
 
 import entityGame.Entity;
 import entityGame.EntityGame;
 import entityGame.Key;
+import entityGame.Sound;
 import entityGame.Sprite;
 
 public class Box implements Entity {
@@ -113,15 +116,35 @@ public class Box implements Entity {
 		
 		// test mouse input
 		
+		Sound s = eg.getResourcesManager().getSoundResources().get("BoxSound");// = eg.getResourcesManager().getSoundResources().get("BoxSound").playSound(eg.getCamera().getCenter(), getCenter());
+		
 		if(eg.getMouseHandler().getCurrentState()[MouseEvent.BUTTON1]) {
-			System.out.println("Box Bounding: " + bound.getBounds().toString());
-			System.out.println("Clicked Position: " + eg.getMousePosition().toString());
-			if(bound.contains(eg.getMousePosition())) {
-				//eg.targetCamera(bound.x+bound.width/2, bound.y+bound.height/2);
-				eg.getResourcesManager().getSoundResources().get("BoxSound").playSound(eg.getCamera().getCenter(), getCenter());
-				System.out.println("pressing box...");
+			try {
+				if(bound.contains(eg.getMousePosition())) {
+					//eg.targetCamera(bound.x+bound.width/2, bound.y+bound.height/2);
+					if(s.getClip() == null) {
+						//System.out.println("Distance: " + getCenter().distance(eg.getCamera().getCenter()));
+						s.playSound(eg.getCamera().getCenter(), getCenter());
+					}
+					else {
+						s.stopSound();
+						//System.out.println("Distance: " + getCenter().distance(eg.getCamera().getCenter()));
+						s.playSound(eg.getCamera().getCenter(), getCenter());
+					}
+				}
+			}
+			catch(Exception ex) {}
+		}
+		/*
+		if(s.getClip() != null) {
+			if(s.isPlaying()) {
+				float strength = (float) ((s.getStrength() - eg.getCamera().getCenter().distance((Point2D) new Point(bound.x+bound.width/2, bound.y+bound.height/2))) / s.getStrength());
+				strength *= (s.getMaxSound()-s.getMinSound()) + s.getMinSound();
+				//s.setVolume(strength);
+				//System.out.println("current sound volume: " + s.getVolume());
 			}
 		}
+		*/
 	}
 
 	@Override
