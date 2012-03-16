@@ -19,7 +19,7 @@ public class Sound {
 	private Clip clip;
 	private double strength;
 	private double volume;
-	private FloatControl control, balanceControl;
+	private FloatControl control, positionControl;// balanceControl, ;
 	private int framePos;
 	
 	public Sound(URL URL, File file, double strength) {
@@ -56,13 +56,15 @@ public class Sound {
 				}
 				
 				control = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-				balanceControl = (FloatControl) clip.getControl(FloatControl.Type.BALANCE);
+				//balanceControl = (FloatControl) clip.getControl(FloatControl.Type.BALANCE);
+				positionControl = (FloatControl) clip.getControl(FloatControl.Type.PAN);
 				float keyVolume = (float) (volume*(control.getMaximum()-control.getMinimum()) + control.getMinimum());
 				control.setValue(keyVolume);
 				float xDiff = (float) (-(HearingPoint.x-centerPoint.x)/strength);
-				System.out.println("Position: " + xDiff);
-				balanceControl.setValue(xDiff);
-				System.out.println("Sound volume: " + keyVolume);
+				//System.out.println("Position: " + xDiff);
+				//balanceControl.setValue(xDiff);
+				positionControl.setValue(xDiff);
+				//System.out.println("Sound volume: " + keyVolume);
 				clip.setFramePosition(0);
 				clip.loop(0);
 			}

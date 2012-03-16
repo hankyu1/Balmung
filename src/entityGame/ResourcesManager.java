@@ -23,6 +23,11 @@ public class ResourcesManager {
 	private Map<String, Image> images = new HashMap<String, Image>();
 	private Map<String, Sound> sounds = new HashMap<String, Sound>();
 	private EntityGame eg;
+	private OutputStream os;
+	private URLConnection uCon;
+	private InputStream is;
+	private byte[] buf;
+	private int ByteRead, ByteWritten;
 	
 	private ResourcesManager() {
 		Resources = new HashMap<String, HashMap>();
@@ -70,11 +75,10 @@ public class ResourcesManager {
 	}
 	
 	public void downloadResources(boolean overWrite, URL url, String DestDir, String fileName, int size) {
-		OutputStream os = null;
-		URLConnection uCon = null;
-		InputStream is = null;
-		byte[] buf;
-		int ByteRead, ByteWritten=0;
+		os = null;
+		uCon = null;
+		is = null;
+		ByteWritten=0;
 		
 		try {
 			
@@ -101,4 +105,7 @@ public class ResourcesManager {
 		}
 	}
 	
+	public int getByteWritten() {
+		return ByteWritten;
+	}
 }

@@ -28,7 +28,6 @@ import entityGame.Sprite;
 
 public class Box implements Entity {
 
-	//protected BufferedImage img;
 	protected Sprite spriteSheet;
 	protected String id;
 	protected Rectangle bound;
@@ -135,16 +134,6 @@ public class Box implements Entity {
 			}
 			catch(Exception ex) {}
 		}
-		/*
-		if(s.getClip() != null) {
-			if(s.isPlaying()) {
-				float strength = (float) ((s.getStrength() - eg.getCamera().getCenter().distance((Point2D) new Point(bound.x+bound.width/2, bound.y+bound.height/2))) / s.getStrength());
-				strength *= (s.getMaxSound()-s.getMinSound()) + s.getMinSound();
-				//s.setVolume(strength);
-				//System.out.println("current sound volume: " + s.getVolume());
-			}
-		}
-		*/
 	}
 
 	@Override
