@@ -11,12 +11,12 @@ import entityGame.Key;
 
 public class InputHandler implements KeyListener{
 
-	private Map<Integer, String> keyMapping = new HashMap<Integer, String>();
-	private ArrayList<Key> inputList = new ArrayList<Key>();
+	private Map<Integer, Key> keyMapping = new HashMap<Integer, Key>();
+	//private ArrayList<Key> inputList = new ArrayList<Key>();
 	
 	// add input mapping
 	public void addInput(int KeyEvent, String actionName) {
-		keyMapping.put(KeyEvent, actionName);
+		keyMapping.put(KeyEvent, new Key(actionName, false));
 		//System.out.println("MapSize: " + keyMapping.size());
 	} 
 	
@@ -40,24 +40,26 @@ public class InputHandler implements KeyListener{
 	}
 	
 	private void toggle(KeyEvent ke, boolean state) {
-		Key actionKey = new Key(keyMapping.get(ke.getKeyCode()), state);
+		//Key actionKey = new Key(keyMapping.get(ke.getKeyCode()), state);
 		//String action = keyMapping.get(ke.getKeyCode());
-		inputList.add(actionKey);
+		//inputList.add(actionKey);
+		keyMapping.get(ke.getKeyCode()).setState(state);
 		System.out.println("key Name: " + keyMapping.get(ke.getKeyCode()));
 	}
-	
+	/*
 	public void cleanList() {
 		inputList.clear();
 	}
-	
-	public ArrayList<Key> getInputList() {
-		return inputList;
+	*/
+	public Map<Integer, Key> getMap() {
+		return keyMapping;
 	}
-	
+	/*
 	public boolean hasInput() {
 		if(inputList.size() > 0)
 			return true;
 		else
 			return false;
 	}
+	*/
 }

@@ -68,10 +68,10 @@ public class Test extends EntityGame{
 		
 		scenes.add(testScene);
 		// map keys
-		inputHandler.addInput(KeyEvent.VK_UP, "UP");
-		inputHandler.addInput(KeyEvent.VK_DOWN, "DOWN");
-		inputHandler.addInput(KeyEvent.VK_LEFT, "LEFT");
-		inputHandler.addInput(KeyEvent.VK_RIGHT, "RIGHT");
+		inputHandler.addInput(KeyEvent.VK_W, "UP");
+		inputHandler.addInput(KeyEvent.VK_S, "DOWN");
+		inputHandler.addInput(KeyEvent.VK_A, "LEFT");
+		inputHandler.addInput(KeyEvent.VK_D, "RIGHT");
 		
 		
 	}

@@ -18,4 +18,8 @@ public class Key {
 	public boolean isPressed() {
 		return state;
 	}
+	
+	public void setState(boolean state) {
+		this.state = state;
+	}
 }

@@ -191,7 +191,7 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 		for(Entity e : currentScene)
 			e.update(this);
 		
-		inputHandler.cleanList();
+		//inputHandler.cleanList();
 	}
 	
 	// render
