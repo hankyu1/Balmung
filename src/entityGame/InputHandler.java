@@ -24,14 +24,14 @@ public class InputHandler implements KeyListener{
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		toggle(arg0, true);
-		System.out.println("keyPressed...");
+		//System.out.println("keyPressed...");
 	}
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		toggle(arg0, false);
-		System.out.println("keyReleased...");
+		//System.out.println("keyReleased...");
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class InputHandler implements KeyListener{
 		//String action = keyMapping.get(ke.getKeyCode());
 		//inputList.add(actionKey);
 		keyMapping.get(ke.getKeyCode()).setState(state);
-		System.out.println("key Name: " + keyMapping.get(ke.getKeyCode()));
+		//System.out.println("key Name: " + keyMapping.get(ke.getKeyCode()));
 	}
 	/*
 	public void cleanList() {

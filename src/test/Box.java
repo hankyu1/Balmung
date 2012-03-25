@@ -7,6 +7,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.Date;
 import java.util.LinkedList;
 
 import entityGame.Entity;
@@ -22,6 +23,9 @@ public class Box implements Entity {
 	protected LinkedList<LinkedList<Entity>> list; 
 	protected int velocity;
 	private double rotation = 0;
+	private long[] fireRate = {1000, 100, 1000};
+	private long currentFireRate = fireRate[0],
+				 currentTime = 0, nextTime = 0;
 	
 	public Box(String id, int x, int y, int w, int h, int velocity, Sprite spriteSheet, EntityGame eg) {
 		this.id = id;
@@ -60,9 +64,9 @@ public class Box implements Entity {
 		// rotation
 		try{
 			Point mousePoint = eg.getMousePosition();
-			rotation = Math.toDegrees(Math.atan2(mousePoint.y-(bound.y+bound.height/2), mousePoint.x-(bound.x+bound.width/2)));
+			rotation = Math.toDegrees(Math.atan2(mousePoint.y-(getCenter().y), mousePoint.x-(getCenter().x)));
 		}catch(Exception ex) {
-			System.out.println("Mouse out of screen...");
+			//System.out.println("Mouse out of screen...");
 		}
 		
 		list = eg.getGB().getGridList(this);
@@ -97,35 +101,38 @@ public class Box implements Entity {
 		//eg.targetCamera(bound.x, bound.y);
 		
 		// test keyboard input
-		if(eg.getInputHandler().getMap().get(KeyEvent.VK_W).isPressed())
+		if(eg.getInputHandler().getMap().get(KeyEvent.VK_W).isPressed() && bound.y-velocity > 0)
 			bound.y -= velocity;
-		if(eg.getInputHandler().getMap().get(KeyEvent.VK_S).isPressed())
+		if(eg.getInputHandler().getMap().get(KeyEvent.VK_S).isPressed() && bound.y+velocity < eg.getHeight())
 			bound.y += velocity;
-		if(eg.getInputHandler().getMap().get(KeyEvent.VK_A).isPressed())
+		if(eg.getInputHandler().getMap().get(KeyEvent.VK_A).isPressed() && bound.x-velocity > 0)
 			bound.x -= velocity;
-		if(eg.getInputHandler().getMap().get(KeyEvent.VK_D).isPressed())
+		if(eg.getInputHandler().getMap().get(KeyEvent.VK_D).isPressed() && bound.x+velocity < eg.getWidth())
 			bound.x += velocity;
-		
+		if(eg.getInputHandler().getMap().get(KeyEvent.VK_1).isPressed())
+			currentFireRate = fireRate[0];
+		if(eg.getInputHandler().getMap().get(KeyEvent.VK_2).isPressed())
+			currentFireRate = fireRate[1];
+		if(eg.getInputHandler().getMap().get(KeyEvent.VK_3).isPressed())
+			currentFireRate = fireRate[2];
 		
 		// test mouse input
 		Sound s = eg.getResourcesManager().getSoundResources().get("BoxSound");// = eg.getResourcesManager().getSoundResources().get("BoxSound").playSound(eg.getCamera().getCenter(), getCenter());
 		
 		if(eg.getMouseHandler().getCurrentState()[MouseEvent.BUTTON1]) {
-			try {
-				if(bound.contains(eg.getMousePosition())) {
-					//eg.targetCamera(bound.x+bound.width/2, bound.y+bound.height/2);
-					if(s.getClip() == null) {
-						//System.out.println("Distance: " + getCenter().distance(eg.getCamera().getCenter()));
-						s.playSound(eg.getCamera().getCenter(), getCenter());
-					}
-					else {
-						s.stopSound();
-						//System.out.println("Distance: " + getCenter().distance(eg.getCamera().getCenter()));
-						s.playSound(eg.getCamera().getCenter(), getCenter());
-					}
-				}
+			currentTime = new Date().getTime();
+			if(currentTime >= nextTime) {
+				try {
+					Bullet bullet = new Bullet("Bullet"+Math.random(), eg.getResourcesManager().getImageResources().get("Bullet"), 1, 1, rotation, 7, 
+												getCenter().x + (int)(Math.cos(Math.toRadians(rotation))*30), 
+												getCenter().y + (int)(Math.sin(Math.toRadians(rotation))*30), 
+												16, 16);
+					eg.addToCurrentScene(bullet);
+					nextTime = currentFireRate+currentTime;
 			}
 			catch(Exception ex) {}
+			}
+			
 		}
 	}
 

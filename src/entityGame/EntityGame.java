@@ -32,7 +32,9 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 	// scenes
 	protected LinkedList<LinkedList<Entity>> scenes;// = new LinkedList<LinkedList<Entity>>();
 	protected LinkedList<Entity> currentScene;
+	protected LinkedList<Entity> removeList, addList;
 	protected LinkedList<Entity> UI;
+	
 	protected GridBox gb;
 	protected File gameFolder;
 	
@@ -111,6 +113,8 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 		// load custom content
 		//init();
 		currentScene = scenes.get(0);
+		removeList = new LinkedList<Entity>();
+		addList = new LinkedList<Entity>();
 
 		// game loop
 		//gameLoop();
@@ -190,6 +194,19 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 		// update all entities in current scene
 		for(Entity e : currentScene)
 			e.update(this);
+		
+		// modify list
+		for(Entity e : removeList)
+			if(currentScene.contains(e)) {
+				currentScene.remove(e);
+				e = null;
+			}
+		
+		for(Entity e : addList) {
+			currentScene.add(e);
+		}
+		removeList.clear();
+		addList.clear();
 		
 		//inputHandler.cleanList();
 	}
@@ -341,5 +358,21 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 	
 	public Camera getCamera() {
 		return Camera;
+	}
+	
+	public void removeFromCurrentScene(Entity e) {
+		removeList.add(e);
+	}
+	
+	public int getEntityIndex(Entity e) {
+		return currentScene.indexOf(e);
+	}
+	
+	public void insertEntity(Entity e) {
+		
+	}
+	
+	public void addToCurrentScene(Entity e) {
+		addList.add(e);
 	}
 }
