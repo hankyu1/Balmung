@@ -219,7 +219,7 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 		
 		try {
 			g = (Graphics2D) bf.getDrawGraphics();
-			g.setColor(Color.WHITE);
+			g.setColor(Color.BLACK);
 			g.fillRect(this.getRootPane().getX(), this.getRootPane().getY(), this.getRootPane().getWidth(), this.getRootPane().getHeight());
 			
 			//translate camera
@@ -275,11 +275,14 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 	
 	
 	// set camera size
-	public void setCamera(int x, int y, int width, int height) {
-		Camera.x = x;
-		Camera.y = y;
+	public void setCameraSize(int width, int height) {
 		Camera.width = width;
 		Camera.height = height;
+	}
+	
+	public void setCameraPosition(int x, int y) {
+		Camera.x = x;
+		Camera.y = y;
 	}
 	
 	// target camera on a point
@@ -374,5 +377,9 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 	
 	public void addToCurrentScene(Entity e) {
 		addList.add(e);
+	}
+	
+	public LinkedList<Entity> getCurrentScene() {
+		return currentScene;
 	}
 }

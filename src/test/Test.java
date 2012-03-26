@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.LinkedList;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -22,7 +23,7 @@ public class Test extends EntityGame{
 
 	
 	public Test() {
-		super("Test", 800, 640);
+		super("Test", 400, 320);
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -39,6 +40,7 @@ public class Test extends EntityGame{
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/tileSheet.png"), getDirectory().toString(), "tileSheet.png", 1024);
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/boxSprite.jpg"), getDirectory().toString(), "boxSprite.jpg", 1024);
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/bullet.png"), getDirectory().toString(), "bullet.png", 1024);
+			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/Monster1.png"), getDirectory().toString(), "Angel.png", 1024);
 			
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -48,6 +50,7 @@ public class Test extends EntityGame{
 		// image resources
 		getResourcesManager().addImage("Ground", new ImageIcon("C:/manatee/tileSheet.png").getImage());
 		getResourcesManager().addImage("Bullet", new ImageIcon("C:/manatee/bullet.png").getImage());
+		getResourcesManager().addImage("Angel", new ImageIcon("C:/manatee/Angel.png").getImage());
 		
 		// sprite resources
 		getResourcesManager().addSprite("BoxSprite", new Sprite("BoxSprite",
@@ -62,40 +65,22 @@ public class Test extends EntityGame{
 		//System.out.println(getResourcesManager().getSoundResources().size());
 		
 		// testScene
-		Box b1 = new Box("Box1", 100, 300, 28, 31, 3, getResourcesManager().getSpriteResources().get("BoxSprite"), this);
+		Random randomGenerator = new Random();
+		
+		Player p1 = new Player("Player1", 100, 300, 28, 31, 3, getResourcesManager().getSpriteResources().get("BoxSprite"), this);
+		Monster Angel = new Monster("Angel", randomGenerator.nextInt(9)+1, 2, 10, getResourcesManager().getImageResources().get("Angel"), 0, 0, 165, 233);
 		UITest uTest = new UITest("Test", 0, 100, 100, 100, "Balmung Test");
 		
 		LinkedList<Entity> testScene = new LinkedList<Entity>();
 		
 		// map1
-		int[][] map1 = {{0,1,2,3,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-						{5,6,7,8,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-						{10,11,12,13,14,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-						{15,16,17,18,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-						{20,21,22,23,24,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-						{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-						{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-						{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-						{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-						{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-						{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-						{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-						{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-						{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-						{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-						{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-						{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-						{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-						{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-						{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}};
 		BufferedImage groundSheet;
 		try {
 			groundSheet = ImageIO.read(new File("C:/manatee/tileSheet.png"));
-			//System.out.println(groundSheet + "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 			for(int row = 0; row < 20; row++)
 				for(int col = 0; col < 25; col++) {
 					int x, y=0;
-					if((x = map1[row][col]) > 4) {
+					if((x = randomGenerator.nextInt(24)) > 4) {
 						y = x/5;
 						x -= y*5;
 					}
@@ -108,7 +93,8 @@ public class Test extends EntityGame{
 			e.printStackTrace();
 		}//getResourcesManager().getImageResources().get("Gound");
 		
-		testScene.add(b1);
+		testScene.add(p1);
+		testScene.add(Angel);
 		testScene.add(uTest);
 		scenes = new LinkedList<LinkedList<Entity>>();
 		
