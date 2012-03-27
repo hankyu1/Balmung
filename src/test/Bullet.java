@@ -58,7 +58,9 @@ public class Bullet implements Entity {
 	@Override
 	public void render(Graphics2D g, EntityGame eg) {
 		// TODO Auto-generated method stub
+		g.rotate(Math.toRadians(angle), bound.x+bound.width/2, bound.y+bound.height/2);
 		g.drawImage(img, bound.x, bound.y, eg.getCanvas());
+		g.rotate(-Math.toRadians(angle), bound.x+bound.width/2, bound.y+bound.height/2);
 	}
 
 }

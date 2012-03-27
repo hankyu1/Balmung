@@ -131,17 +131,24 @@ public class Player implements Entity {
 			currentTime = new Date().getTime();
 			if(currentTime >= nextTime) {
 				try {
-					if(currentGun != shotgun) {
-						Bullet bullet = new Bullet("Bullet"+Math.random(), eg.getResourcesManager().getImageResources().get("Bullet"), 1, 1, rotation, 7, 
+					if(currentGun == handgun) {
+						Bullet bullet = new Bullet("Bullet"+Math.random(), eg.getResourcesManager().getImageResources().get("HandgunBullet"), 1, 1, rotation, 7, 
 								getCenter().x + (int)(Math.cos(Math.toRadians(rotation))*30), 
 								getCenter().y + (int)(Math.sin(Math.toRadians(rotation))*30), 
 								16, 16);
 						eg.addToCurrentScene(bullet);
 					}
-					else {
+					else if(currentGun == machinegun) {
+						Bullet bullet = new Bullet("Bullet"+Math.random(), eg.getResourcesManager().getImageResources().get("MachinegunBullet"), 1, 1, rotation, 7, 
+								getCenter().x + (int)(Math.cos(Math.toRadians(rotation))*30), 
+								getCenter().y + (int)(Math.sin(Math.toRadians(rotation))*30), 
+								16, 16);
+						eg.addToCurrentScene(bullet);
+					}
+					else if(currentGun == shotgun) {
 						// shot gun makes a lot of bullets ._./
 						for(int i = 0; i < 23; i++) {
-							Bullet bullet = new Bullet("Bullet"+Math.random(), eg.getResourcesManager().getImageResources().get("Bullet"), 7, 1, rotation+72-i*7, 5, 
+							Bullet bullet = new Bullet("Bullet"+Math.random(), eg.getResourcesManager().getImageResources().get("ShotgunBullet"), 7, 1, rotation+72-i*7, 5, 
 									getCenter().x + (int)(Math.cos(Math.toRadians(rotation))*30), 
 									getCenter().y + (int)(Math.sin(Math.toRadians(rotation))*30), 
 									16, 16);

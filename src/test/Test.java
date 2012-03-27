@@ -39,8 +39,10 @@ public class Test extends EntityGame{
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/sound/Boxing%20bag%20punches.wav"), getDirectory().toString(), "BoxSound.wav", 1024);
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/tileSheet.png"), getDirectory().toString(), "tileSheet.png", 1024);
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/boxSprite.jpg"), getDirectory().toString(), "boxSprite.jpg", 1024);
-			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/bullet.png"), getDirectory().toString(), "bullet.png", 1024);
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/Monster1.png"), getDirectory().toString(), "Angel.png", 1024);
+			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/handgunBullet.png"), getDirectory().toString(), "handgunBullet.png", 1024);
+			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/machinegunBullet.png"), getDirectory().toString(), "machinegunBullet.png", 1024);
+			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/shotgunBullet.png"), getDirectory().toString(), "shotgunBullet.png", 1024);
 			
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -49,8 +51,10 @@ public class Test extends EntityGame{
 		
 		// image resources
 		getResourcesManager().addImage("Ground", new ImageIcon("C:/manatee/tileSheet.png").getImage());
-		getResourcesManager().addImage("Bullet", new ImageIcon("C:/manatee/bullet.png").getImage());
+		getResourcesManager().addImage("HandgunBullet", new ImageIcon("C:/manatee/handgunBullet.png").getImage());
 		getResourcesManager().addImage("Angel", new ImageIcon("C:/manatee/Angel.png").getImage());
+		getResourcesManager().addImage("MachinegunBullet", new ImageIcon("C:/manatee/machinegunBullet.png").getImage());
+		getResourcesManager().addImage("ShotgunBullet", new ImageIcon("C:/manatee/shotgunBullet.png").getImage());
 		
 		// sprite resources
 		getResourcesManager().addSprite("BoxSprite", new Sprite("BoxSprite",
@@ -84,7 +88,6 @@ public class Test extends EntityGame{
 						y = x/5;
 						x -= y*5;
 					}
-					
 					Image img = Toolkit.getDefaultToolkit().createImage(groundSheet.getSubimage(x*32, y*32, 32, 32).getSource());
 					testScene.add(new ImageEntity("ground("+row+","+col+")", img, 32, 32, col*32, row*32));
 				}
@@ -97,7 +100,6 @@ public class Test extends EntityGame{
 		testScene.add(Angel);
 		testScene.add(uTest);
 		scenes = new LinkedList<LinkedList<Entity>>();
-		
 		scenes.add(testScene);
 		
 		// map keys
