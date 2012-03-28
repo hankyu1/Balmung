@@ -72,7 +72,7 @@ public class Test extends EntityGame{
 		Random randomGenerator = new Random();
 		
 		Player p1 = new Player("Player1", 100, 300, 28, 31, 3, getResourcesManager().getSpriteResources().get("BoxSprite"), this);
-		Monster Angel = new Monster("Angel", randomGenerator.nextInt(9)+1, 2, 10, getResourcesManager().getImageResources().get("Angel"), 0, 0, 165, 233);
+		Monster Angel = new Monster("Angel", randomGenerator.nextInt(9)+1, 2, 10, getResourcesManager().getImageResources().get("Angel"), 0, 0, 35, 50);
 		UITest uTest = new UITest("Test", 0, 100, 100, 100, "Balmung Test");
 		
 		LinkedList<Entity> testScene = new LinkedList<Entity>();
