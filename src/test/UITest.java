@@ -48,4 +48,10 @@ public class UITest implements Entity, UIComponent {
 		g.drawString(txt, bound.x, bound.y);
 	}
 
+	@Override
+	public boolean isSolid() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

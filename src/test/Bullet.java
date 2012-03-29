@@ -63,4 +63,10 @@ public class Bullet implements Entity {
 		g.rotate(-Math.toRadians(angle), bound.x+bound.width/2, bound.y+bound.height/2);
 	}
 
+	@Override
+	public boolean isSolid() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
 }

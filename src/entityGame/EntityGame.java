@@ -208,6 +208,7 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 		removeList.clear();
 		addList.clear();
 		
+		gb.cleanList();
 		//inputHandler.cleanList();
 	}
 	
@@ -293,12 +294,8 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 	
 	// collision detection with grid
 	public boolean collisionDetection(Rectangle thisEntity, Rectangle thatEntity) {
-		boolean hit = false;
 		
-		if(thisEntity.intersects(thatEntity))
-			hit = true;
-		
-		return hit;
+		return thisEntity.intersects(thatEntity);
 	}
 	
 	// get collision list

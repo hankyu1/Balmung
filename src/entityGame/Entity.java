@@ -22,4 +22,6 @@ public interface Entity {
 	public void update(EntityGame eg);
 	
 	public void render(Graphics2D g, EntityGame eg);
+	
+	public boolean isSolid();
 }

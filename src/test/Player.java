@@ -20,7 +20,7 @@ public class Player implements Entity {
 	protected Sprite spriteSheet;
 	protected String id;
 	protected Rectangle bound;
-	protected LinkedList<LinkedList<Entity>> list; 
+	//protected LinkedList<LinkedList<Entity>> list; 
 	protected int velocity,
 				  handgun = 0, machinegun = 1, shotgun = 2,
 				  currentGun = handgun;
@@ -69,7 +69,7 @@ public class Player implements Entity {
 			//System.out.println("Mouse out of screen...");
 		}
 		
-		list = eg.getGB().getGridList(this);
+		//list = eg.getGB().getGridList(this);
 		/*
 		 * collision
 		Rectangle thisRect, thatRect;
@@ -95,7 +95,7 @@ public class Player implements Entity {
 		}
 		*/
 		
-		list.clear();
+		//list.clear();
 		
 		// camera
 		eg.targetCamera(getCenter().x, getCenter().y);
@@ -188,6 +188,12 @@ public class Player implements Entity {
 		spriteSheet.drawSpriteFrame(g, new Point(bound.x, bound.y), eg.getCanvas());
 		g.rotate(-Math.toRadians(rotation), bound.x+bound.width/2, bound.y+bound.height/2);
 		
+	}
+
+	@Override
+	public boolean isSolid() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 	
 }

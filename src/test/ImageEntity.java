@@ -44,4 +44,10 @@ public class ImageEntity implements Entity {
 		g.drawImage(img, bound.x, bound.y, eg.getCanvas());
 	}
 
+	@Override
+	public boolean isSolid() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

@@ -6,6 +6,8 @@ import java.util.LinkedList;
 
 public class GridBox {
 	
+	LinkedList<LinkedList<Entity>> list = new LinkedList<LinkedList<Entity>>();
+	
 	protected class Grid extends Rectangle {
 		
 		protected LinkedList<Entity> content;
@@ -58,13 +60,12 @@ public class GridBox {
 	public LinkedList<LinkedList<Entity>> getGridList(Entity e) {
 		
 		// find the list of entities that are in the same grid
-		LinkedList<LinkedList<Entity>> list = new LinkedList<LinkedList<Entity>>();
-		
+		list.clear();
 		for(Grid g : grid)
-			if(g.content.contains(e)) {
+			if(g.content.contains(e) && e.isSolid()) {
 				list.add(g.content);
 			}
-		
+		//System.out.println("BigO: " + Counter);
 		return list;
 	}
 	

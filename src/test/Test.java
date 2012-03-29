@@ -39,10 +39,11 @@ public class Test extends EntityGame{
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/sound/Boxing%20bag%20punches.wav"), getDirectory().toString(), "BoxSound.wav", 1024);
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/tileSheet.png"), getDirectory().toString(), "tileSheet.png", 1024);
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/boxSprite.jpg"), getDirectory().toString(), "boxSprite.jpg", 1024);
-			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/Monster1.png"), getDirectory().toString(), "Angel.png", 1024);
+			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/A.png"), getDirectory().toString(), "Angel.png", 1024);
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/handgunBullet.png"), getDirectory().toString(), "handgunBullet.png", 1024);
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/machinegunBullet.png"), getDirectory().toString(), "machinegunBullet.png", 1024);
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/shotgunBullet.png"), getDirectory().toString(), "shotgunBullet.png", 1024);
+			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/MonsterSpawnPoint.png"), getDirectory().toString(), "SpawnPoint.png", 1024);
 			
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -55,6 +56,7 @@ public class Test extends EntityGame{
 		getResourcesManager().addImage("Angel", new ImageIcon("C:/manatee/Angel.png").getImage());
 		getResourcesManager().addImage("MachinegunBullet", new ImageIcon("C:/manatee/machinegunBullet.png").getImage());
 		getResourcesManager().addImage("ShotgunBullet", new ImageIcon("C:/manatee/shotgunBullet.png").getImage());
+		getResourcesManager().addImage("SpawnPoint", new ImageIcon("C:/manatee/SpawnPoint.png").getImage());
 		
 		// sprite resources
 		getResourcesManager().addSprite("BoxSprite", new Sprite("BoxSprite",
@@ -69,15 +71,18 @@ public class Test extends EntityGame{
 		//System.out.println(getResourcesManager().getSoundResources().size());
 		
 		// testScene
+		LinkedList<Entity> Map1 = new LinkedList<Entity>();
+		
+		// map1
+		
 		Random randomGenerator = new Random();
 		
 		Player p1 = new Player("Player1", 100, 300, 28, 31, 3, getResourcesManager().getSpriteResources().get("BoxSprite"), this);
-		Monster Angel = new Monster("Angel", randomGenerator.nextInt(9)+1, 2, 10, getResourcesManager().getImageResources().get("Angel"), 0, 0, 35, 50);
+		//Monster Angel = new Monster("Angel", randomGenerator.nextInt(9)+1, 2, 10, getResourcesManager().getImageResources().get("Angel"), 0, 0, 35, 50);
 		UITest uTest = new UITest("Test", 0, 100, 100, 100, "Balmung Test");
+		SpawnPoint sp1 = new SpawnPoint("SpawnPoint 1", getResourcesManager().getImageResources().get("SpawnPoint"), 1000, 5, 0, 0, 80, 80);
+		sp1.setSpawning(true);
 		
-		LinkedList<Entity> testScene = new LinkedList<Entity>();
-		
-		// map1
 		BufferedImage groundSheet;
 		try {
 			groundSheet = ImageIO.read(new File("C:/manatee/tileSheet.png"));
@@ -89,18 +94,19 @@ public class Test extends EntityGame{
 						x -= y*5;
 					}
 					Image img = Toolkit.getDefaultToolkit().createImage(groundSheet.getSubimage(x*32, y*32, 32, 32).getSource());
-					testScene.add(new ImageEntity("ground("+row+","+col+")", img, 32, 32, col*32, row*32));
+					Map1.add(new ImageEntity("ground("+row+","+col+")", img, 32, 32, col*32, row*32));
 				}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}//getResourcesManager().getImageResources().get("Gound");
 		
-		testScene.add(p1);
-		testScene.add(Angel);
-		testScene.add(uTest);
+		Map1.add(p1);
+		//Map1.add(Angel);
+		Map1.add(uTest);
+		Map1.add(sp1);
 		scenes = new LinkedList<LinkedList<Entity>>();
-		scenes.add(testScene);
+		scenes.add(Map1);
 		
 		// map keys
 		inputHandler.addInput(KeyEvent.VK_W, "UP");
