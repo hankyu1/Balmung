@@ -69,7 +69,7 @@ public class SpawnPoint implements Entity {
 					// set next time
 					nextTime = currentTime + spawnTime;
 					
-					System.out.println("Spawning...");
+					//System.out.println("Spawning...");
 					Monster monster = new Monster("Monster", 10, 3, 5, eg.getResourcesManager().getImageResources().get("Angel"), getCenterPoint().x, getCenterPoint().y, 35, 50);
 					eg.addToCurrentScene(monster);
 					counter++;

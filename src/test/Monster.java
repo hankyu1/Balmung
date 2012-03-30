@@ -49,9 +49,25 @@ public class Monster implements Entity, Cloneable {
 		return id;
 	}
 
+	private LinkedList<Point> aStart(Point initPoint, Point goal) {
+		// create the open list of nodes, initially containing only our starting node
+		LinkedList<Point> openList = new LinkedList<Point>();
+		openList.add(initPoint);
+		
+		// create the closed list of nodes, initially empty
+		LinkedList<Point> closeList = new LinkedList<Point>();
+		
+		//while (we have not reached our goal) 
+		
+	}
+	
 	@Override
 	public void update(EntityGame eg) {
 		// TODO Auto-generated method stub
+		
+		
+		
+		/*
 		Point PlayerPoint = new Point();
 		
 		// find player
@@ -81,16 +97,10 @@ public class Monster implements Entity, Cloneable {
 		
 		for(LinkedList<Entity> le : list)
 			for(Entity e : le) {
-				if(!e.equals(this) && Player.class.isInstance(e) &&
+				if(!e.equals(this) && (Monster.class.isInstance(e) || Player.class.isInstance(e) )&&
 				   eg.collisionDetection(new Rectangle(bound.x+(int)newX, bound.y+(int)newY, bound.width, bound.height),e.getBoundingBox())) {
 					collideList.add(e);
-					/*
-					isCollided = true;
-					Rectangle rect = e.getBoundingBox();
-					points.add(new Point(rect.x+rect.width/2, rect.y+rect.height/2));*/
 				}
-				//else
-					//isCollided = false;
 			}
 		
 		if(collideList.isEmpty()) {
@@ -115,29 +125,19 @@ public class Monster implements Entity, Cloneable {
 				aveY += p.y/pSize;
 			}
 			Point nP = new Point((int)aveX, (int)aveY);
-			tempRotation = Math.toDegrees(Math.atan2(nP.y-(getCenter().y), nP.x-(getCenter().x)))+90;
+			tempRotation = Math.toDegrees(Math.atan2(nP.y-(getCenter().y), nP.x-(getCenter().x)))-180;
 			rotation = Math.toDegrees(Math.atan2(nP.y-(getCenter().y), nP.x-(getCenter().x)));
 			points.clear();
-		}
-		/*
-		newX = Math.cos(Math.toRadians(rotation))*velocity + bound.x;
-		newY = Math.sin(Math.toRadians(rotation))*velocity + bound.y;
-		
-		if(tempRotation != 1000) {
-			rotation = tempRotation;
-			tempRotation = 1000;
-		}
-		*/
-		if(!isCollided) {
-			newX = Math.cos(Math.toRadians(rotation))*velocity + bound.x;
-			newY = Math.sin(Math.toRadians(rotation))*velocity + bound.y;
-			bound.setLocation((int)newX, (int)newY);
-		}
-		else {
 			newX = Math.cos(Math.toRadians(tempRotation))*velocity + bound.x;
 			newY = Math.sin(Math.toRadians(tempRotation))*velocity + bound.y;
 			bound.setLocation((int)newX, (int)newY);
 		}
+		else {
+			newX = Math.cos(Math.toRadians(rotation))*velocity + bound.x;
+			newY = Math.sin(Math.toRadians(rotation))*velocity + bound.y;
+			bound.setLocation((int)newX, (int)newY);
+		}
+		*/
 	}
 	
 	private Point getCenter() {
