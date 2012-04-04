@@ -46,7 +46,7 @@ public class Player implements Entity {
 	}
 	
 	private Point getCenter() {
-		return new Point(getBoundingBox().x+getBoundingBox().width/2, getBoundingBox().y+getBoundingBox().height/2);
+		return new Point(bound.x+bound.width/2, bound.y+bound.height/2);
 	}
 	
 	public void injur(int dmg) {
