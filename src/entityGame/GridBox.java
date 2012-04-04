@@ -45,7 +45,7 @@ public class GridBox {
 	public void addToGrid(LinkedList<Entity> list) {
 		for(Entity e : list) {
 			for(Grid g : grid)
-				if(g.intersects(e.getBoundingBox()))
+				if(g.intersects(e.getBoundingBox()) && e.isSolid())
 					g.content.add(e);
 		}
 	}

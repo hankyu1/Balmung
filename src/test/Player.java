@@ -28,6 +28,9 @@ public class Player implements Entity {
 	private long[] fireRate = {800, 100, 1200};
 	private long currentFireRate = fireRate[currentGun],
 				 currentTime = 0, nextTime = 0;
+	private int[] gunDmg = {6, 3, 4};
+	private int HP = 100;
+	
 	
 	public Player(String id, int x, int y, int w, int h, int velocity, Sprite spriteSheet, EntityGame eg) {
 		this.id = id;
@@ -46,6 +49,10 @@ public class Player implements Entity {
 		return new Point(getBoundingBox().x+getBoundingBox().width/2, getBoundingBox().y+getBoundingBox().height/2);
 	}
 	
+	public void injur(int dmg) {
+		HP -= dmg;
+	}
+	
 	@Override
 	public Rectangle getBoundingBox() {
 		// TODO Auto-generated method stub
@@ -60,7 +67,7 @@ public class Player implements Entity {
 
 	@Override
 	public void update(EntityGame eg) {
-		
+		System.out.println("HP: " + HP);
 		// rotation
 		try{
 			Point mousePoint = eg.getMousePosition();
@@ -169,25 +176,9 @@ public class Player implements Entity {
 		// TODO Auto-generated method stub
 		//System.out.println("ASDF");
 		
-		/*
-		if(rotatingCount > 1 || rotatingCount < 0)
-			rotatingSide = -rotatingSide;
-		
-		if(Math.toRadians(rotatingCount) >= Math.PI)
-			rotatingCount = 0;
-		rotatingCount += rotatingSide;
-		//System.out.println("rotatingCount: " + rotatingCount);
-		
-		g.rotate(Math.toRadians(rotatingCount), bound.x+bound.width/2, bound.y+bound.height/2);
-		spriteSheet.drawSpriteFrame(g, new Point(bound.x, bound.y), eg.getCanvas());
-		g.rotate(-Math.toRadians(rotatingCount), bound.x+bound.width/2, bound.y+bound.height/2);
-		//g.drawImage(img, bound.x, bound.y, eg.getCanvas());
-		 * 
-		 */
 		g.rotate(Math.toRadians(rotation), bound.x+bound.width/2, bound.y+bound.height/2);
 		spriteSheet.drawSpriteFrame(g, new Point(bound.x, bound.y), eg.getCanvas());
 		g.rotate(-Math.toRadians(rotation), bound.x+bound.width/2, bound.y+bound.height/2);
-		
 	}
 
 	@Override

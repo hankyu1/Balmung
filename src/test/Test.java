@@ -80,7 +80,7 @@ public class Test extends EntityGame{
 		Player p1 = new Player("Player1", 100, 300, 28, 31, 3, getResourcesManager().getSpriteResources().get("BoxSprite"), this);
 		//Monster Angel = new Monster("Angel", randomGenerator.nextInt(9)+1, 2, 10, getResourcesManager().getImageResources().get("Angel"), 0, 0, 35, 50);
 		UITest uTest = new UITest("Test", 0, 100, 100, 100, "Balmung Test");
-		SpawnPoint sp1 = new SpawnPoint("SpawnPoint 1", getResourcesManager().getImageResources().get("SpawnPoint"), 1000, 5, 0, 0, 80, 80);
+		SpawnPoint sp1 = new SpawnPoint("SpawnPoint 1", getResourcesManager().getImageResources().get("SpawnPoint"), 1000, 10, 0, 0, 80, 80);
 		sp1.setSpawning(true);
 		
 		BufferedImage groundSheet;
