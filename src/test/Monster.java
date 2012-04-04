@@ -57,52 +57,58 @@ public class Monster implements Entity, Cloneable {
 	@Override
 	public void update(EntityGame eg) {
 		// TODO Auto-generated method stub
-		
-		Entity Player = null;
-		currentTime = new Date().getTime();
-		
-		FindPlayerPoint:
-		for(Entity e : eg.getCurrentScene()) {
-			if(Player.class.isInstance(e)) {
-				Player = e;
-				
-				break FindPlayerPoint;
-			}
-		}
-		
-		rotation = Math.toDegrees(Math.atan2(Player.getBoundingBox().y-(getCenter().y), Player.getBoundingBox().x-(getCenter().x)));
-		
-		double newY, newX;
-		newX = Math.cos(Math.toRadians(rotation))*velocity;
-		newY = Math.sin(Math.toRadians(rotation))*velocity;
-		
-		int attackRange = 5;
-		
-		double attackX = Math.cos(Math.toRadians(rotation))*attackRange + bound.x + bound.width/2, 
-			   attackY = Math.sin(Math.toRadians(rotation))*attackRange + bound.y + bound.height/2;
-		int attackWidth = 1, attackHeight = 1;
-		
-		Rectangle attackingRect = new Rectangle((int)attackX, (int)attackY, attackWidth, attackHeight);
-		
-		if(attackingRect.intersects(Player.getBoundingBox())) {
-			attacking = true;
-		}
-		
-		if(attacking) {
-			System.out.println("ASDFASDF");
-			if(currentTime >= nextTime) {
-				nextTime = currentTime + attackingRate;
-				
-				// do dmg
-				((Player)Player).injur(dmg);
-				
-				attacking = false;
+		System.out.println("HP: " + HP);
+		if(HP > 0) {
+			Entity Player = null;
+			currentTime = new Date().getTime();
+			
+			FindPlayerPoint:
+			for(Entity e : eg.getCurrentScene()) {
+				if(Player.class.isInstance(e)) {
+					Player = e;
+					
+					break FindPlayerPoint;
+				}
 			}
 			
+			rotation = Math.toDegrees(Math.atan2(Player.getBoundingBox().y-(getCenter().y), Player.getBoundingBox().x-(getCenter().x)));
 			
+			double newY, newX;
+			newX = Math.cos(Math.toRadians(rotation))*velocity;
+			newY = Math.sin(Math.toRadians(rotation))*velocity;
+			
+			int attackRange = 5;
+			
+			double attackX = Math.cos(Math.toRadians(rotation))*attackRange + bound.x + bound.width/2, 
+				   attackY = Math.sin(Math.toRadians(rotation))*attackRange + bound.y + bound.height/2;
+			int attackWidth = 1, attackHeight = 1;
+			
+			Rectangle attackingRect = new Rectangle((int)attackX, (int)attackY, attackWidth, attackHeight);
+			
+			if(attackingRect.intersects(Player.getBoundingBox())) {
+				attacking = true;
+			}
+			
+			if(attacking) {
+				if(currentTime >= nextTime) {
+					nextTime = currentTime + attackingRate;
+					
+					// do dmg
+					((Player)Player).injur(dmg);
+					
+					attacking = false;
+				}
+				
+				
+			}
+			else
+				bound.setLocation((int) newX+bound.x,(int) newY + bound.y);
 		}
-		else
-			bound.setLocation((int) newX+bound.x,(int) newY + bound.y);
+		else {
+			eg.removeFromCurrentScene(this);
+		}
+		
+		
 		
 		/*
 		list = eg.getGB().getGridList(this);
@@ -235,6 +241,10 @@ public class Monster implements Entity, Cloneable {
 			bound.setLocation((int)newX, (int)newY);
 		}
 		*/
+	}
+	
+	public void injur(int dmg) {
+		HP -= dmg;
 	}
 	
 	private Point getCenter() {

@@ -3,6 +3,7 @@ package test;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.util.LinkedList;
 
 import entityGame.Entity;
 import entityGame.EntityGame;
@@ -41,15 +42,38 @@ public class Bullet implements Entity {
 	@Override
 	public void update(EntityGame eg) {
 		// TODO Auto-generated method stub
+		
+		Entity target = null;
+		
 		if(lifeTime >= 0) {
-			double newX = Math.cos(Math.toRadians(angle))*acceleration + bound.x;
-			double newY = Math.sin(Math.toRadians(angle))*acceleration + bound.y;
 			
-			//System.out.println("LifeTime: " + lifeTime + "\nX: " + newX + "\nY: " + newY);
+			LinkedList<LinkedList<Entity>> list = eg.getGB().getGridList(this);
 			
-			bound.setLocation((int)newX, (int)newY);
-			acceleration += acceleration;
-			lifeTime --;
+			FindMonster:
+			for(LinkedList<Entity> el : list) {
+				for(Entity e : el) {
+					if(!this.equals(e) && Monster.class.isInstance(e) && eg.collisionDetection(e.getBoundingBox(), bound)) {
+						target = e;
+						break FindMonster;
+					}
+				}
+			}
+			
+			if(target == null) {
+				double newX = Math.cos(Math.toRadians(angle))*acceleration + bound.x;
+				double newY = Math.sin(Math.toRadians(angle))*acceleration + bound.y;
+				
+				//System.out.println("LifeTime: " + lifeTime + "\nX: " + newX + "\nY: " + newY);
+				
+				bound.setLocation((int)newX, (int)newY);
+				acceleration += acceleration;
+				lifeTime --;
+			}
+			else {
+				((Monster) target).injur(dmg);
+				eg.removeFromCurrentScene(this);
+			}
+			
 		}
 		else
 			eg.removeFromCurrentScene(this);

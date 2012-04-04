@@ -23,7 +23,7 @@ public class Test extends EntityGame{
 
 	
 	public Test() {
-		super("Test", 400, 320);
+		super("Test", 800, 600, 400, 320);
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -74,15 +74,15 @@ public class Test extends EntityGame{
 		LinkedList<Entity> Map1 = new LinkedList<Entity>();
 		
 		// map1
-		
+		//setCameraSize(400, 320);
 		Random randomGenerator = new Random();
 		
 		Player p1 = new Player("Player1", 100, 300, 28, 31, 3, getResourcesManager().getSpriteResources().get("BoxSprite"), this);
 		//Monster Angel = new Monster("Angel", randomGenerator.nextInt(9)+1, 2, 10, getResourcesManager().getImageResources().get("Angel"), 0, 0, 35, 50);
 		UITest uTest = new UITest("Test", 0, 100, 100, 100, "Balmung Test");
 		SpawnPoint sp1 = new SpawnPoint("SpawnPoint 1", getResourcesManager().getImageResources().get("SpawnPoint"), 1000, 10, 0, 0, 80, 80),
-				   sp2 = new SpawnPoint("SpawnPoint 1", getResourcesManager().getImageResources().get("SpawnPoint"), 1000, 10, 320, 0, 80, 80),
-				   sp3 = new SpawnPoint("SpawnPoint 1", getResourcesManager().getImageResources().get("SpawnPoint"), 1000, 10, 720, 0, 80, 80);
+				   sp2 = new SpawnPoint("SpawnPoint 2", getResourcesManager().getImageResources().get("SpawnPoint"), 1000, 10, 320, 0, 80, 80),
+				   sp3 = new SpawnPoint("SpawnPoint 3", getResourcesManager().getImageResources().get("SpawnPoint"), 1000, 10, 720, 0, 80, 80);
 		sp1.setSpawning(true);
 		sp2.setSpawning(true);
 		sp3.setSpawning(true);

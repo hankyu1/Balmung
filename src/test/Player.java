@@ -46,7 +46,7 @@ public class Player implements Entity {
 	}
 	
 	private Point getCenter() {
-		return new Point(bound.x+bound.width/2, bound.y+bound.height/2);
+		return new Point(getBoundingBox().x+getBoundingBox().width/2, getBoundingBox().y+getBoundingBox().height/2);
 	}
 	
 	public void injur(int dmg) {
@@ -67,7 +67,6 @@ public class Player implements Entity {
 
 	@Override
 	public void update(EntityGame eg) {
-		System.out.println("HP: " + HP);
 		// rotation
 		try{
 			Point mousePoint = eg.getMousePosition();
@@ -139,14 +138,14 @@ public class Player implements Entity {
 			if(currentTime >= nextTime) {
 				try {
 					if(currentGun == handgun) {
-						Bullet bullet = new Bullet("Bullet"+Math.random(), eg.getResourcesManager().getImageResources().get("HandgunBullet"), 1, 1, rotation, 7, 
+						Bullet bullet = new Bullet("Bullet"+Math.random(), eg.getResourcesManager().getImageResources().get("HandgunBullet"), gunDmg[0], 1, rotation, 7, 
 								getCenter().x + (int)(Math.cos(Math.toRadians(rotation))*30), 
 								getCenter().y + (int)(Math.sin(Math.toRadians(rotation))*30), 
 								16, 16);
 						eg.addToCurrentScene(bullet);
 					}
 					else if(currentGun == machinegun) {
-						Bullet bullet = new Bullet("Bullet"+Math.random(), eg.getResourcesManager().getImageResources().get("MachinegunBullet"), 1, 1, rotation, 7, 
+						Bullet bullet = new Bullet("Bullet"+Math.random(), eg.getResourcesManager().getImageResources().get("MachinegunBullet"), gunDmg[1], 1, rotation, 7, 
 								getCenter().x + (int)(Math.cos(Math.toRadians(rotation))*30), 
 								getCenter().y + (int)(Math.sin(Math.toRadians(rotation))*30), 
 								16, 16);
@@ -155,7 +154,7 @@ public class Player implements Entity {
 					else if(currentGun == shotgun) {
 						// shot gun makes a lot of bullets ._./
 						for(int i = 0; i < 23; i++) {
-							Bullet bullet = new Bullet("Bullet"+Math.random(), eg.getResourcesManager().getImageResources().get("ShotgunBullet"), 7, 1, rotation+72-i*7, 5, 
+							Bullet bullet = new Bullet("Bullet"+Math.random(), eg.getResourcesManager().getImageResources().get("ShotgunBullet"), gunDmg[2], 1, rotation+72-i*7, 5, 
 									getCenter().x + (int)(Math.cos(Math.toRadians(rotation))*30), 
 									getCenter().y + (int)(Math.sin(Math.toRadians(rotation))*30), 
 									16, 16);
