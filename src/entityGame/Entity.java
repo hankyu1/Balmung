@@ -24,4 +24,8 @@ public interface Entity {
 	public void render(Graphics2D g, EntityGame eg);
 	
 	public boolean isSolid();
+	
+	public boolean isPrerender();
+	
+	public void setPrerender(boolean flag);
 }

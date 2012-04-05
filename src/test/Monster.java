@@ -21,6 +21,7 @@ public class Monster implements Entity, Cloneable {
 	private LinkedList<Point> points;
 	private boolean attacking;
 	private long currentTime, nextTime, attackingRate;
+	private boolean prerender;
 	
 	public Monster(String id, int HP, int velocity, int dmg, Image img, int x, int y, int width, int height) {
 		this.id = id;
@@ -35,6 +36,7 @@ public class Monster implements Entity, Cloneable {
 		currentTime = 1;
 		nextTime = 0;
 		attackingRate = 800;
+		prerender = false;
 	}
 	
 	public void setPosition(int x, int y) {
@@ -57,7 +59,6 @@ public class Monster implements Entity, Cloneable {
 	@Override
 	public void update(EntityGame eg) {
 		// TODO Auto-generated method stub
-		System.out.println("HP: " + HP);
 		if(HP > 0) {
 			Entity Player = null;
 			currentTime = new Date().getTime();
@@ -105,6 +106,8 @@ public class Monster implements Entity, Cloneable {
 				bound.setLocation((int) newX+bound.x,(int) newY + bound.y);
 		}
 		else {
+			DisasambleAnimation da = new DisasambleAnimation(img, bound.x, bound.y, 100, 100, 4);
+			eg.addToCurrentScene(da);
 			eg.removeFromCurrentScene(this);
 		}
 		
@@ -264,6 +267,17 @@ public class Monster implements Entity, Cloneable {
 	public boolean isSolid() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	@Override
+	public boolean isPrerender() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setPrerender(boolean flag) {
+		// TODO Auto-generated method stub
 	}
 
 }

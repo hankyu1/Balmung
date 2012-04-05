@@ -16,6 +16,7 @@ public class Bullet implements Entity {
 	private double angle;
 	private long lifeTime;
 	private Rectangle bound;
+	private boolean prerender;
 	
 	public Bullet(String id, Image img, int dmg, int acceleration, double angle, long lifeTime, int x, int y, int width, int height) {
 		this.id = id;
@@ -25,6 +26,7 @@ public class Bullet implements Entity {
 		this.angle = angle;
 		this.lifeTime = lifeTime;
 		bound = new Rectangle(x-width/2,y-height/2,width,height);
+		prerender = false;
 	}
 	
 	@Override
@@ -91,6 +93,18 @@ public class Bullet implements Entity {
 	public boolean isSolid() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	@Override
+	public boolean isPrerender() {
+		// TODO Auto-generated method stub
+		return prerender;
+	}
+
+	@Override
+	public void setPrerender(boolean flag) {
+		// TODO Auto-generated method stub
+		prerender = flag;
 	}
 
 }

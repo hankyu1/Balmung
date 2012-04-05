@@ -12,12 +12,14 @@ public class ImageEntity implements Entity {
 	private String id;
 	private Image img;
 	private Rectangle bound;
+	private boolean prerender;
 	
 	public ImageEntity(String id, Image img, int width, int height, int x, int y) {
 		this.id = id;
 		this.img = img;
 		bound = new Rectangle(x, y, width, height);
 		//System.out.println("I am a tile");
+		prerender = false;
 	}
 	
 	@Override
@@ -48,6 +50,18 @@ public class ImageEntity implements Entity {
 	public boolean isSolid() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public boolean isPrerender() {
+		// TODO Auto-generated method stub
+		return prerender;
+	}
+
+	@Override
+	public void setPrerender(boolean flag) {
+		// TODO Auto-generated method stub
+		prerender = flag;
 	}
 
 }

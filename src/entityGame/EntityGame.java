@@ -49,10 +49,14 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 	protected ResourcesManager resourcesManager = ResourcesManager.getInstance();
 	
 	// constructor
-	public EntityGame(String title, int width, int height) {
+	public EntityGame(String title, int width, int height, int camWidth, int camHeight) {
 		this.title = title;
 		this.width = width;
 		this.height = height;
+		
+		// add camera
+		Camera = new Camera(0, 0, camWidth, camHeight);
+		
 	}
 	
 	// initialize game
@@ -81,8 +85,6 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 		//currentScene = scenes.get(0);
 
 		
-		// add camera
-		Camera = new Camera(0, 0, width, height);
 		//System.out.println("CameraSize: " + Camera.toString());
 		//System.out.println("WindowSize: " + this.getRootPane().getLocation().toString());
 		//System.out.println("PanelSize: " + this.getContentPane().getLocation().toString());
@@ -235,8 +237,10 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 				}
 				
 				// only render the entity that is on camera
-				else if(e.getBoundingBox().intersects(Camera)) {
-						e.render(g, this);
+				else if(e.getBoundingBox().intersects(Camera) || e.isPrerender()) {
+					if(e.isPrerender())
+						e.setPrerender(false);
+					e.render(g, this);
 				}
 			}
 			

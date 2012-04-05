@@ -36,7 +36,7 @@ public class Test extends EntityGame{
 		setDirectory("C:\\manatee");
 		try {
 			//System.out.println(getDirectory());
-			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/sound/Boxing%20bag%20punches.wav"), getDirectory().toString(), "BoxSound.wav", 1024);
+			//getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/sound/Boxing%20bag%20punches.wav"), getDirectory().toString(), "BoxSound.wav", 1024);
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/tileSheet.png"), getDirectory().toString(), "tileSheet.png", 1024);
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/boxSprite.jpg"), getDirectory().toString(), "boxSprite.jpg", 1024);
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/Angel.png"), getDirectory().toString(), "Angel.png", 1024);
@@ -98,7 +98,9 @@ public class Test extends EntityGame{
 						x -= y*5;
 					}
 					Image img = Toolkit.getDefaultToolkit().createImage(groundSheet.getSubimage(x*32, y*32, 32, 32).getSource());
-					Map1.add(new ImageEntity("ground("+row+","+col+")", img, 32, 32, col*32, row*32));
+					ImageEntity tile = new ImageEntity("ground("+row+","+col+")", img, 32, 32, col*32, row*32);
+					tile.setPrerender(true);
+					Map1.add(tile);
 				}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
