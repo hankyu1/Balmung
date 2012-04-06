@@ -235,9 +235,7 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 				}
 				
 				// only render the entity that is on camera
-				else if(e.getBoundingBox().intersects(Camera) || e.isPrerender()) {
-					if(e.isPrerender())
-						e.setPrerender(false);
+				else if(e.getBoundingBox().intersects(Camera)) {
 					e.render(g, this);
 				}
 			}

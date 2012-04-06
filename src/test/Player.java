@@ -222,17 +222,6 @@ public class Player implements Entity {
 		// TODO Auto-generated method stub
 		return true;
 	}
-
-	@Override
-	public boolean isPrerender() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setPrerender(boolean flag) {
-		// TODO Auto-generated method stub
-	}
 	
 	public int getHP() {
 		return HP;

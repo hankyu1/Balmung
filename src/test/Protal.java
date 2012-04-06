@@ -82,18 +82,6 @@ public class Protal implements Entity {
 		// TODO Auto-generated method stub
 		return true;
 	}
-
-	@Override
-	public boolean isPrerender() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public void setPrerender(boolean flag) {
-		// TODO Auto-generated method stub
-
-	}
 	
 	public void injur(int dmg) {
 		if(HP - dmg >= 0)

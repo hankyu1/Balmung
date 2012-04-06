@@ -78,16 +78,4 @@ public class Timer implements Entity, UIComponent {
 		return false;
 	}
 
-	@Override
-	public boolean isPrerender() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setPrerender(boolean flag) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

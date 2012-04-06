@@ -124,7 +124,6 @@ public class Test extends EntityGame{
 					}
 					Image img = Toolkit.getDefaultToolkit().createImage(groundSheet.getSubimage(x*32, y*32, 32, 32).getSource());
 					ImageEntity tile = new ImageEntity("ground("+row+","+col+")", img, 32, 32, col*32, row*32);
-					tile.setPrerender(true);
 					Map1.add(tile);
 				}
 		} catch (IOException e) {
@@ -153,6 +152,7 @@ public class Test extends EntityGame{
 		inputHandler.addInput(KeyEvent.VK_1, "HandGun");
 		inputHandler.addInput(KeyEvent.VK_2, "MachineGun");
 		inputHandler.addInput(KeyEvent.VK_3, "ShotGun");
+		inputHandler.addInput(KeyEvent.VK_M, "MapToggle");
 	}
 	public static void main(String[] args) {
 		Test t = new Test();

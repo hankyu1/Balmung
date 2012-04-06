@@ -96,16 +96,4 @@ public class SpawnPoint implements Entity {
 		return false;
 	}
 
-	@Override
-	public boolean isPrerender() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setPrerender(boolean flag) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

@@ -118,16 +118,4 @@ public class Bullet implements Entity {
 		return true;
 	}
 
-	@Override
-	public boolean isPrerender() {
-		// TODO Auto-generated method stub
-		return prerender;
-	}
-
-	@Override
-	public void setPrerender(boolean flag) {
-		// TODO Auto-generated method stub
-		prerender = flag;
-	}
-
 }
