@@ -2,11 +2,14 @@ package test;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.Date;
 import java.util.LinkedList;
 
 import entityGame.Entity;
 import entityGame.EntityGame;
+import entityGame.Sprite;
 
 public class Bullet implements Entity {
 
@@ -14,9 +17,10 @@ public class Bullet implements Entity {
 	private Image img;
 	private int dmg, acceleration;
 	private double angle;
-	private long lifeTime;
+	private long lifeTime, explosionTime;
 	private Rectangle bound;
-	private boolean prerender;
+	private boolean prerender, explosion;
+	private Sprite explosionSheet = null;
 	
 	public Bullet(String id, Image img, int dmg, int acceleration, double angle, long lifeTime, int x, int y, int width, int height) {
 		this.id = id;
@@ -27,6 +31,8 @@ public class Bullet implements Entity {
 		this.lifeTime = lifeTime;
 		bound = new Rectangle(x-width/2,y-height/2,width,height);
 		prerender = false;
+		explosion = false;
+		explosionTime = 1000;
 	}
 	
 	@Override
@@ -44,6 +50,9 @@ public class Bullet implements Entity {
 	@Override
 	public void update(EntityGame eg) {
 		// TODO Auto-generated method stub
+		
+		if(explosionSheet == null)
+			explosionSheet = eg.getResourcesManager().getSpriteResources().get("BulletExplosion");
 		
 		Entity target = null;
 		
@@ -72,8 +81,12 @@ public class Bullet implements Entity {
 				lifeTime --;
 			}
 			else {
-				((Monster) target).injur(dmg);
-				eg.removeFromCurrentScene(this);
+				if(!explosion) {
+					((Monster) target).injur(dmg);
+					explosionTime += new Date().getTime();
+				}
+				//eg.removeFromCurrentScene(this);
+				explosion = true;
 			}
 			
 		}
@@ -84,9 +97,19 @@ public class Bullet implements Entity {
 	@Override
 	public void render(Graphics2D g, EntityGame eg) {
 		// TODO Auto-generated method stub
-		g.rotate(Math.toRadians(angle), bound.x+bound.width/2, bound.y+bound.height/2);
-		g.drawImage(img, bound.x, bound.y, eg.getCanvas());
-		g.rotate(-Math.toRadians(angle), bound.x+bound.width/2, bound.y+bound.height/2);
+		if(explosion) {
+			long currentTime = new Date().getTime();
+			explosionSheet.drawSpriteFrame(g, new Point(bound.x, bound.y), eg.getCanvas());
+			//System.out.println(currentTime +", " + explosionTime);
+			if(currentTime > explosionTime)
+				eg.removeFromCurrentScene(this);
+		}
+		else {
+			g.rotate(Math.toRadians(angle), bound.x+bound.width/2, bound.y+bound.height/2);
+			g.drawImage(img, bound.x, bound.y, eg.getCanvas());
+			g.rotate(-Math.toRadians(angle), bound.x+bound.width/2, bound.y+bound.height/2);
+		}
+		
 	}
 
 	@Override

@@ -2,41 +2,30 @@ package test;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.Date;
 
 import entityGame.Entity;
 import entityGame.EntityGame;
 
-public class SpawnPoint implements Entity {
+public class Protal implements Entity {
 
-	private long spawnTime, currentTime, nextTime;
 	private String id;
 	private Image img;
 	private Rectangle bound;
-	private boolean isSpawning;
+	private int HP, HPReg, HPMax;
 	private double rotation;
-	private int NumToSpawn, counter;
+	private long currentTime, nextTime, regTime;
 	
-	public SpawnPoint(String id, Image img, long spawnTime, int NumToSpawn, int x, int y, int width, int height) {
+	public Protal(String id, Image img, int x, int y, int width, int height, int HP, int HPReg, long regTime) {
 		this.id = id;
 		this.img = img;
-		this.spawnTime = spawnTime;
 		bound = new Rectangle(x, y, width, height);
-		isSpawning = false;
-		rotation = 0;
+		this.HP = HP;
+		this.HPReg = HPReg;
+		HPMax = HP;
+		this.regTime = regTime;
 		nextTime = 0;
-		this.NumToSpawn = NumToSpawn;
-		counter = 0;
-	}
-	
-	public Point getCenterPoint() {
-		return new Point(bound.x+bound.width/2, bound.y+bound.height/2);
-	}
-	
-	public void setSpawning(boolean flag) {
-		isSpawning = flag;
 	}
 	
 	@Override
@@ -54,32 +43,30 @@ public class SpawnPoint implements Entity {
 	@Override
 	public void update(EntityGame eg) {
 		// TODO Auto-generated method stub
-		// spinning
+		
+		currentTime = new Date().getTime();
+		
 		if(rotation >= 360) {
 			rotation = 0;
 		}
 		else
 			rotation++;
 		
-		// if it is spawning
-		if(isSpawning) {
-			if(counter < NumToSpawn) {
-				currentTime = new Date().getTime();
-				if(currentTime >= nextTime) {
-					// set next time
-					nextTime = currentTime + spawnTime;
-					
-					//System.out.println("Spawning...");
-					Monster monster = new Monster("Monster", 10, 2, 5, eg.getResourcesManager().getImageResources().get("Angel"), getCenterPoint().x, getCenterPoint().y, 35, 50);
-					eg.addToCurrentScene(monster);
-					counter++;
-				}
-			}
-			else {
-				counter = 0;
-				isSpawning = false;
+		// HP/HPReg
+		if(HP >= HPMax) {
+			HP = HPMax;
+		}
+		else {
+			if(currentTime >= nextTime) {
+				if(HP + HPReg > HPMax)
+					HP = HPMax;
+				else
+					HP += HPReg;
+				nextTime = currentTime + regTime;
 			}
 		}
+		
+		//System.out.println("HP: " + HP);
 	}
 
 	@Override
@@ -93,19 +80,30 @@ public class SpawnPoint implements Entity {
 	@Override
 	public boolean isSolid() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean isPrerender() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public void setPrerender(boolean flag) {
 		// TODO Auto-generated method stub
-		
+
+	}
+	
+	public void injur(int dmg) {
+		if(HP - dmg >= 0)
+			HP -= dmg;
+		else
+			HP = 0;
+	}
+	
+	public int getHP() {
+		return HP;
 	}
 
 }

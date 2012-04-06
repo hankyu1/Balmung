@@ -69,12 +69,11 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 		getContentPane().setLocation(getRootPane().getX(), getRootPane().getY());
 		
 		
-		this.setIgnoreRepaint(true);
 		drawArea = new Canvas();
-		
+		drawArea.setIgnoreRepaint(true);
 		drawArea.setSize(width,height);
 		drawArea.setVisible(true);
-		System.out.println(this.isShowing());
+		//System.out.println(this.isShowing());
 		getContentPane().add(drawArea);
 		
 		drawArea.createBufferStrategy(3);
@@ -170,7 +169,7 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 			int thisSecond = (int)(lastUpdateTime / 1000000000);
 			frameCount++;
 			if(thisSecond > lastSecondTime) {
-				System.out.println("NEW SECOND " + thisSecond + " " + frameCount);
+				//System.out.println("NEW SECOND " + thisSecond + " " + frameCount);
 				fps = frameCount;
 				frameCount = 0;
 				lastSecondTime = thisSecond;
@@ -217,13 +216,12 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 	// render
 	private void drawGame(float interpolation) {
 		// draw entities
-		Graphics2D g = null;
-		
+		Graphics2D g = (Graphics2D) bf.getDrawGraphics();
 		
 		try {
-			g = (Graphics2D) bf.getDrawGraphics();
+			//g = (Graphics2D) bf.getDrawGraphics();
 			g.setColor(Color.BLACK);
-			g.fillRect(this.getRootPane().getX(), this.getRootPane().getY(), this.getRootPane().getWidth(), this.getRootPane().getHeight());
+			g.fillRect(0, 0, getWidth(), getHeight());
 			
 			//translate camera
 			g.translate(-Camera.x+getRootPane().getX(), -Camera.y+getRootPane().getY());
@@ -268,12 +266,12 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 			// draw camera center point
 			//g.draw(new Ellipse2D.Float(Camera.getCenter().x, Camera.getCenter().y, 5.0f, 5.0f));
 			
-			g.dispose();
+			//g.dispose();
 		}
 		
 		bf.show();
 		
-		Toolkit.getDefaultToolkit().sync();
+		//Toolkit.getDefaultToolkit().sync();
 	}
 	
 	// switch scene

@@ -27,9 +27,12 @@ public class Player implements Entity {
 	private double rotation = 0;
 	private long[] fireRate = {800, 100, 1200};
 	private long currentFireRate = fireRate[currentGun],
-				 currentTime = 0, nextTime = 0;
-	private int[] gunDmg = {6, 3, 4};
-	private int HP = 100;
+				 currentTime = 0, nextTime = 0,
+				 HPRegTime = 3000, nextHpReg = 0, EnergyRegTime = 1000, nextEnReg = 0,
+				 abilityTime = 1000, nextAbilityTime = 0;
+	private int[] gunDmg = {6, 3, 4},
+				  gunEnergy = {10, 15, 20};
+	private int HP = 100, HPMax = 100, Energy = 100, EnMax = 100;
 	
 	
 	public Player(String id, int x, int y, int w, int h, int velocity, Sprite spriteSheet, EntityGame eg) {
@@ -50,7 +53,10 @@ public class Player implements Entity {
 	}
 	
 	public void injur(int dmg) {
-		HP -= dmg;
+		if(HP - dmg >= 0)
+			HP -= dmg;
+		else
+			HP = 0;
 	}
 	
 	@Override
@@ -68,6 +74,27 @@ public class Player implements Entity {
 	@Override
 	public void update(EntityGame eg) {
 		// rotation
+		currentTime = new Date().getTime();
+		
+		// health/energy regeneration
+		// HP
+		if(currentTime >= nextHpReg) {
+			if(HP + 3 > HPMax)
+				HP = HPMax;
+			else
+				HP += 3;
+			
+			nextHpReg = currentTime + HPRegTime;
+		}
+		if( currentTime >= nextEnReg) {
+			if(Energy + 6 > EnMax)
+				Energy = EnMax;
+			else
+				Energy += 6;
+			
+			nextEnReg = currentTime + EnergyRegTime;
+		}
+		
 		try{
 			Point mousePoint = eg.getMousePosition();
 			rotation = Math.toDegrees(Math.atan2(mousePoint.y-(getCenter().y), mousePoint.x-(getCenter().x)));
@@ -130,11 +157,9 @@ public class Player implements Entity {
 			currentGun = shotgun;
 		}
 		
-		// test mouse input
-		Sound s = eg.getResourcesManager().getSoundResources().get("BoxSound");// = eg.getResourcesManager().getSoundResources().get("BoxSound").playSound(eg.getCamera().getCenter(), getCenter());
-		
+		// LeftMouse Press (Fire)
 		if(eg.getMouseHandler().getCurrentState()[MouseEvent.BUTTON1]) {
-			currentTime = new Date().getTime();
+			
 			if(currentTime >= nextTime) {
 				try {
 					if(currentGun == handgun) {
@@ -168,6 +193,18 @@ public class Player implements Entity {
 			}
 			
 		}
+		
+		// RighMouse Press (Ability)
+		if(eg.getMouseHandler().getCurrentState()[MouseEvent.BUTTON3]) {
+			if(currentTime >= nextAbilityTime) {
+				if(Energy - gunEnergy[currentGun] >= 0) {
+					Energy -= gunEnergy[currentGun];
+				}
+				else
+					System.out.println("Not Enough Energy...");
+				nextAbilityTime = currentTime + abilityTime;
+			}
+		}
 	}
 
 	@Override
@@ -197,4 +234,11 @@ public class Player implements Entity {
 		// TODO Auto-generated method stub
 	}
 	
+	public int getHP() {
+		return HP;
+	}
+	
+	public int getEnergy() {
+		return Energy;
+	}
 }

@@ -22,6 +22,8 @@ public class Monster implements Entity, Cloneable {
 	private boolean attacking;
 	private long currentTime, nextTime, attackingRate;
 	private boolean prerender;
+	private Entity Player = null,
+			   protal = null;
 	
 	public Monster(String id, int HP, int velocity, int dmg, Image img, int x, int y, int width, int height) {
 		this.id = id;
@@ -56,57 +58,77 @@ public class Monster implements Entity, Cloneable {
 		return id;
 	}
 	
+	private double distance(Point p1, Point p2) {
+		return Math.sqrt((Math.pow(p1.x-p2.x, 2))+(Math.pow(p1.y-p2.y, 2)));
+	}
+	
 	@Override
 	public void update(EntityGame eg) {
 		// TODO Auto-generated method stub
 		if(HP > 0) {
-			Entity Player = null;
 			currentTime = new Date().getTime();
 			
-			FindPlayerPoint:
-			for(Entity e : eg.getCurrentScene()) {
-				if(Player.class.isInstance(e)) {
-					Player = e;
-					
-					break FindPlayerPoint;
+			if((Player == null || protal == null))
+				FindPlayerPoint:
+				for(Entity e : eg.getCurrentScene()) {
+					if(Player != null && protal != null)
+						break FindPlayerPoint;
+					else {
+						if(Player.class.isInstance(e)) 
+							Player = e;
+						if(Protal.class.isInstance(e))
+							protal = e;
+					}
 				}
-			}
 			
-			rotation = Math.toDegrees(Math.atan2(Player.getBoundingBox().y-(getCenter().y), Player.getBoundingBox().x-(getCenter().x)));
+			if(distance(new Point((int)Player.getBoundingBox().getCenterX(), (int)Player.getBoundingBox().getCenterY()), bound.getLocation()) < 200)
+				rotation = Math.toDegrees(Math.atan2((Player.getBoundingBox().y+Player.getBoundingBox().height/2)-(getCenter().y), (Player.getBoundingBox().x+Player.getBoundingBox().width/2)-(getCenter().x)));
+			else
+				rotation = Math.toDegrees(Math.atan2((protal.getBoundingBox().y+protal.getBoundingBox().height/2)-(getCenter().y), (protal.getBoundingBox().x+protal.getBoundingBox().width/2)-(getCenter().x)));
+			
+			//System.out.println("Location: " + protal.getBoundingBox().getLocation());
 			
 			double newY, newX;
 			newX = Math.cos(Math.toRadians(rotation))*velocity;
 			newY = Math.sin(Math.toRadians(rotation))*velocity;
 			
-			int attackRange = 5;
-			
-			double attackX = Math.cos(Math.toRadians(rotation))*attackRange + bound.x + bound.width/2, 
-				   attackY = Math.sin(Math.toRadians(rotation))*attackRange + bound.y + bound.height/2;
-			int attackWidth = 1, attackHeight = 1;
-			
-			Rectangle attackingRect = new Rectangle((int)attackX, (int)attackY, attackWidth, attackHeight);
-			
-			if(attackingRect.intersects(Player.getBoundingBox())) {
-				attacking = true;
+			if(eg.collisionDetection(bound, protal.getBoundingBox())) {
+				((Protal)protal).injur(dmg);
+				HP = 0;
 			}
-			
-			if(attacking) {
-				if(currentTime >= nextTime) {
-					nextTime = currentTime + attackingRate;
-					
-					// do dmg
-					((Player)Player).injur(dmg);
-					
-					attacking = false;
+			else {
+				int attackRange = 5;
+				
+				double attackX = Math.cos(Math.toRadians(rotation))*attackRange + bound.x + bound.width/2, 
+					   attackY = Math.sin(Math.toRadians(rotation))*attackRange + bound.y + bound.height/2;
+				int attackWidth = 1, attackHeight = 1;
+				
+				Rectangle attackingRect = new Rectangle((int)attackX, (int)attackY, attackWidth, attackHeight);
+				
+				if(attackingRect.intersects(Player.getBoundingBox())) {
+					attacking = true;
 				}
 				
-				
+				if(attacking) {
+					if(currentTime >= nextTime) {
+						nextTime = currentTime + attackingRate;
+						
+						// do dmg
+						((Player)Player).injur(dmg);
+						
+						attacking = false;
+					}
+					
+					
+				}
+				else
+					bound.setLocation((int) newX+bound.x,(int) newY + bound.y);
 			}
-			else
-				bound.setLocation((int) newX+bound.x,(int) newY + bound.y);
+			
+			
 		}
 		else {
-			DisasambleAnimation da = new DisasambleAnimation(img, bound.x, bound.y, 100, 100, 4);
+			DisasambleAnimation da = new DisasambleAnimation(img, bound.x, bound.y, 25, 25, 4, rotation, getCenter(), 5);
 			eg.addToCurrentScene(da);
 			eg.removeFromCurrentScene(this);
 		}
