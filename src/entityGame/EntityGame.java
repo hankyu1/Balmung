@@ -68,7 +68,7 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 		//pack();
 		getContentPane().setLocation(getRootPane().getX(), getRootPane().getY());
 		
-		
+		setIgnoreRepaint(true);
 		drawArea = new Canvas();
 		drawArea.setIgnoreRepaint(true);
 		drawArea.setSize(width,height);
@@ -76,7 +76,7 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 		//System.out.println(this.isShowing());
 		getContentPane().add(drawArea);
 		
-		drawArea.createBufferStrategy(3);
+		drawArea.createBufferStrategy(2);
 		bf = drawArea.getBufferStrategy();
 		//System.out.println("bf: " + bf.toString());
 		//scenes = new LinkedList<LinkedList<Entity>>();

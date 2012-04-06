@@ -112,6 +112,8 @@ public class Test extends EntityGame{
 		
 		PlayerUI pui = new PlayerUI(this, p1, protal);
 		
+		MiniMap minimap = new MiniMap("minimap", 5, 380, 90, 90, 800, 600);
+		
 		BufferedImage groundSheet;
 		try {
 			groundSheet = ImageIO.read(new File("C:/manatee/tileSheet.png"));
@@ -140,6 +142,7 @@ public class Test extends EntityGame{
 		Map1.add(sp3);
 		Map1.add(waveTimer);
 		Map1.add(pui);
+		Map1.add(minimap);
 		
 		scenes = new LinkedList<LinkedList<Entity>>();
 		scenes.add(Map1);
