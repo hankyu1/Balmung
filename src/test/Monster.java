@@ -5,7 +5,6 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.Date;
-import java.util.LinkedList;
 
 import entityGame.Entity;
 import entityGame.EntityGame;
@@ -17,8 +16,6 @@ public class Monster implements Entity, Cloneable {
 	private int HP, velocity, dmg;
 	private Image img;
 	private Rectangle bound;
-	private LinkedList<LinkedList<Entity>> list;
-	private LinkedList<Point> points;
 	private boolean attacking;
 	private long currentTime, nextTime, attackingRate;
 	private Entity Player = null,
@@ -32,7 +29,6 @@ public class Monster implements Entity, Cloneable {
 		this.img = img;
 		rotation = 0;
 		bound = new Rectangle(x, y, width, height);
-		points = new LinkedList<Point>();
 		attacking = false;
 		currentTime = 1;
 		nextTime = 0;

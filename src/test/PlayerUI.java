@@ -12,6 +12,7 @@ public class PlayerUI implements Entity, UIComponent {
 
 	private Rectangle bound;
 	private Image ui, bHP, pHP, energy, weapon, wAbility;
+	private Image[] weapons, wAbilitys;
 	Player player;
 	Protal protal;
 	

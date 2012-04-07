@@ -19,7 +19,7 @@ public class Bullet implements Entity {
 	private double angle;
 	private long lifeTime, explosionTime;
 	private Rectangle bound;
-	private boolean prerender, explosion;
+	private boolean explosion;
 	private Sprite explosionSheet = null;
 	
 	public Bullet(String id, Image img, int dmg, int acceleration, double angle, long lifeTime, int x, int y, int width, int height) {
@@ -30,7 +30,6 @@ public class Bullet implements Entity {
 		this.angle = angle;
 		this.lifeTime = lifeTime;
 		bound = new Rectangle(x-width/2,y-height/2,width,height);
-		prerender = false;
 		explosion = false;
 		explosionTime = 1000;
 	}

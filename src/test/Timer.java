@@ -19,6 +19,7 @@ public class Timer implements Entity, UIComponent {
 	private long time, interval, second, currentTime, nextTime;
 	private NumberFormat formate = new DecimalFormat("00");
 	private int fixX, fixY;
+	private boolean done = false;
 	
 	public Timer(String id, Image img, int x, int y, int width, int height, int fixX, int fixY, long time) {
 		this.id = id;
@@ -50,8 +51,7 @@ public class Timer implements Entity, UIComponent {
 		// TODO Auto-generated method stub
 		
 		currentTime = new Date().getTime();
-		
-		if(time >= 0) {
+		if(time > 0) {
 			if(currentTime >= nextTime) {
 				time-=1000;
 				nextTime = currentTime + second;
@@ -60,9 +60,8 @@ public class Timer implements Entity, UIComponent {
 				sec = (int)(time-min*60000)/1000;
 			displayTime = formate.format(min)+":"+formate.format(sec);
 		}
-		else {
-			time = interval;
-		}
+		else
+			done = true;
 	}
 
 	@Override
@@ -77,5 +76,20 @@ public class Timer implements Entity, UIComponent {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	
+	public long getTime() {
+		return time;
+	}
+	
+	public boolean isDone() {
+		return done;
+	}
+	
+	public void setTimer(boolean state) {
+		done = state;
+	}
+	
+	public void restartTimer() {
+		time = interval;
+	}
 }

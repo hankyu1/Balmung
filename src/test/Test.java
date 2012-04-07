@@ -103,17 +103,22 @@ public class Test extends EntityGame{
 		SpawnPoint sp1 = new SpawnPoint("SpawnPoint 1", getResourcesManager().getImageResources().get("SpawnPoint"), 1000, 10, 0, 0, 80, 80),
 				   sp2 = new SpawnPoint("SpawnPoint 2", getResourcesManager().getImageResources().get("SpawnPoint"), 1000, 10, 320, 0, 80, 80),
 				   sp3 = new SpawnPoint("SpawnPoint 3", getResourcesManager().getImageResources().get("SpawnPoint"), 1000, 10, 720, 0, 80, 80);
-		sp1.setSpawning(true);
-		sp2.setSpawning(true);
-		sp3.setSpawning(true);
+		//sp1.setSpawning(true);
+		//sp2.setSpawning(true);
+		//sp3.setSpawning(true);
+		
+		
 		
 		Protal protal = new Protal("Protal", getResourcesManager().getImageResources().get("Protal"), 303, 400, 194, 192, 100, 3, 1000);
-		Timer waveTimer = new Timer("waveTimer", getResourcesManager().getImageResources().get("WaveTimer"), 10, 10, 100, 30, 25, 22, 120000);
+		Timer waveTimer = new Timer("waveTimer", getResourcesManager().getImageResources().get("WaveTimer"), 10, 10, 100, 30, 25, 22, 60000);
 		
 		PlayerUI pui = new PlayerUI(this, p1, protal);
 		
 		MiniMap minimap = new MiniMap("minimap", 5, 380, 90, 90, 800, 600);
-		
+		WaveController wc = new WaveController("controller", waveTimer);
+		wc.addSpawnPoint(sp1);
+		wc.addSpawnPoint(sp2);
+		wc.addSpawnPoint(sp3);
 		BufferedImage groundSheet;
 		try {
 			groundSheet = ImageIO.read(new File("C:/manatee/tileSheet.png"));
@@ -133,6 +138,7 @@ public class Test extends EntityGame{
 			e.printStackTrace();
 		}//getResourcesManager().getImageResources().get("Gound");
 		
+		Map1.add(wc);
 		Map1.add(protal);
 		Map1.add(p1);
 		//Map1.add(Angel);

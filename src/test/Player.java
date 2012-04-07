@@ -8,11 +8,9 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.Date;
-import java.util.LinkedList;
 
 import entityGame.Entity;
 import entityGame.EntityGame;
-import entityGame.Sound;
 import entityGame.Sprite;
 
 public class Player implements Entity {

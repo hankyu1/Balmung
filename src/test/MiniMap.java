@@ -19,6 +19,7 @@ public class MiniMap implements Entity, UIComponent {
 	private LinkedList<Point> points;
 	private LinkedList<String> type;
 	private int screenWidth, screenHeight;
+	private long currentTime, nextTime;
 	
 	public MiniMap(String id, int x, int y, int width, int height, int screenWidth, int screenHeight) {
 		this.id = id;
@@ -28,8 +29,6 @@ public class MiniMap implements Entity, UIComponent {
 		type = new LinkedList<String>();
 		this.screenHeight = screenHeight;
 		this.screenWidth = screenWidth;
-		//ratioX = width/screenWidth;
-		//ratioY = height/screenHeight;
 	}
 	
 	@Override
@@ -98,10 +97,7 @@ public class MiniMap implements Entity, UIComponent {
 				
 				g.fillRect((int)(bound.width*ratioX+bound.x), (int)(bound.height*ratioY+bound.y), 5, 5);
 			}
-			
 		}
-		
-		
 	}
 
 	@Override
