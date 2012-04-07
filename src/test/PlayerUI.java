@@ -17,7 +17,7 @@ public class PlayerUI implements Entity, UIComponent {
 	Protal protal;
 	
 	public PlayerUI(EntityGame eg, Player player, Protal protal) {
-		bound = new Rectangle(100, 370, 440, 110);
+		bound = new Rectangle(180, 490, 440, 110);
 		this.player = player;
 		this.protal = protal;
 		ui = eg.getResourcesManager().getImageResources().get("UI");

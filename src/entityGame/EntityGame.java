@@ -64,8 +64,6 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 		
 		getContentPane().setVisible(true);
 		getContentPane().setPreferredSize(new Dimension(width,height));
-		//System.out.println("RootPanel: " + this.getRootPane().getLocation().toString());
-		//pack();
 		getContentPane().setLocation(getRootPane().getX(), getRootPane().getY());
 		
 		setIgnoreRepaint(true);
@@ -73,20 +71,11 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 		drawArea.setIgnoreRepaint(true);
 		drawArea.setSize(width,height);
 		drawArea.setVisible(true);
-		//System.out.println(this.isShowing());
 		getContentPane().add(drawArea);
 		
-		drawArea.createBufferStrategy(2);
+		drawArea.createBufferStrategy(3);
 		bf = drawArea.getBufferStrategy();
-		//System.out.println("bf: " + bf.toString());
-		//scenes = new LinkedList<LinkedList<Entity>>();
 		UI = new LinkedList<Entity>();
-		//currentScene = scenes.get(0);
-
-		
-		//System.out.println("CameraSize: " + Camera.toString());
-		//System.out.println("WindowSize: " + this.getRootPane().getLocation().toString());
-		//System.out.println("PanelSize: " + this.getContentPane().getLocation().toString());
 		gb = new GridBox(new Dimension(width,height));
 		
 		// add listener
@@ -103,16 +92,12 @@ public abstract class EntityGame extends JApplet implements GameLoop{
 		//setTitle(title);
 		
 		// set up the frame
-		//setPreferredSize(new Dimension(width,height));
-		//setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setVisible(true);
 		
 		// initialize and load game content
 		// initialize game frame
 		init(this);
 		
 		// load custom content
-		//init();
 		currentScene = scenes.get(0);
 		removeList = new LinkedList<Entity>();
 		addList = new LinkedList<Entity>();

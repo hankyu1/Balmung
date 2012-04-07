@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
+import java.util.Date;
 import java.util.LinkedList;
 
 import entityGame.Entity;
@@ -29,6 +30,7 @@ public class MiniMap implements Entity, UIComponent {
 		type = new LinkedList<String>();
 		this.screenHeight = screenHeight;
 		this.screenWidth = screenWidth;
+		nextTime = 0;
 	}
 	
 	@Override
@@ -46,6 +48,7 @@ public class MiniMap implements Entity, UIComponent {
 	@Override
 	public void update(EntityGame eg) {
 		// TODO Auto-generated method stub
+		
 		type.clear();
 		points.clear();
 		if(showMap) {
@@ -53,24 +56,37 @@ public class MiniMap implements Entity, UIComponent {
 			int size = list.size();
 			for(int i = 0; i < size; i++) {
 				
+				Point p = new Point();
+				p.x = list.get(i).getBoundingBox().x+list.get(i).getBoundingBox().width/2;
+				p.y = list.get(i).getBoundingBox().y+list.get(i).getBoundingBox().height/2;
+				
 				if(list.get(i) instanceof Monster) {
 					type.add("monster");
-					points.add(list.get(i).getBoundingBox().getLocation());
+					points.add(p);
 				}
 				else if(list.get(i) instanceof Player) {
 					type.add("player");
-					points.add(list.get(i).getBoundingBox().getLocation());
+					points.add(p);
 				}
 				else if(list.get(i) instanceof SpawnPoint) {
 					type.add("spawn point");
-					points.add(list.get(i).getBoundingBox().getLocation());
+					points.add(p);
+				}
+				else if(list.get(i) instanceof Protal) {
+					type.add("protal");
+					points.add(p);
 				}
 			}
 			//System.out.println("Size: " + size);
 		}
 		
 		if(eg.getInputHandler().getMap().get(KeyEvent.VK_M).isPressed()) {
-			showMap = !showMap;
+			currentTime = new Date().getTime();
+			if(currentTime > nextTime) {
+				showMap = !showMap;
+				nextTime = currentTime + 100;
+			}
+			
 		}
 	}
 
@@ -91,7 +107,8 @@ public class MiniMap implements Entity, UIComponent {
 					g.setColor(Color.YELLOW);
 				else if(name.equals("spawn point"))
 					g.setColor(Color.WHITE);
-				
+				else if(name.equals("protal"))
+					g.setColor(Color.orange);
 				double ratioX = (double)(points.get(i).x)/screenWidth;
 				double ratioY = (double)(points.get(i).y)/screenHeight;
 				

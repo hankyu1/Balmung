@@ -135,11 +135,11 @@ public class Player implements Entity {
 		// movement
 		if(eg.getInputHandler().getMap().get(KeyEvent.VK_W).isPressed() && bound.y-velocity > 0)
 			bound.y -= velocity;
-		if(eg.getInputHandler().getMap().get(KeyEvent.VK_S).isPressed() && bound.y+bound.height+velocity < 640)
+		if(eg.getInputHandler().getMap().get(KeyEvent.VK_S).isPressed() && bound.y+bound.height+velocity < 768)
 			bound.y += velocity;
 		if(eg.getInputHandler().getMap().get(KeyEvent.VK_A).isPressed() && bound.x-velocity > 0)
 			bound.x -= velocity;
-		if(eg.getInputHandler().getMap().get(KeyEvent.VK_D).isPressed() && bound.x+bound.width+velocity < 800)
+		if(eg.getInputHandler().getMap().get(KeyEvent.VK_D).isPressed() && bound.x+bound.width+velocity < 1024)
 			bound.x += velocity;
 		// guns
 		if(eg.getInputHandler().getMap().get(KeyEvent.VK_1).isPressed()) {

@@ -1,19 +1,11 @@
 package test;
 
 import java.awt.Dimension;
-import java.awt.Image;
 import java.awt.Point;
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.LinkedList;
-import java.util.Random;
-
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 
@@ -23,7 +15,7 @@ public class Test extends EntityGame{
 
 	
 	public Test() {
-		super("Test", 800, 600, 640, 480);
+		super("Test", 1024, 768, 800, 600);
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -35,8 +27,6 @@ public class Test extends EntityGame{
 		// download resources (optional, you can load stuff on the fly if you want to)
 		setDirectory("C:\\manatee");
 		try {
-			//System.out.println(getDirectory());
-			//getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/sound/Boxing%20bag%20punches.wav"), getDirectory().toString(), "BoxSound.wav", 1024);
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/tileSheet.png"), getDirectory().toString(), "tileSheet.png", 1024);
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/boxSprite.jpg"), getDirectory().toString(), "boxSprite.jpg", 1024);
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/Angel.png"), getDirectory().toString(), "Angel.png", 1024);
@@ -51,6 +41,13 @@ public class Test extends EntityGame{
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/protalHP.png"), getDirectory().toString(), "BaseHP.png", 1024);
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/PlayerHP.png"), getDirectory().toString(), "PlayerHP.png", 1024);
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/Energy.png"), getDirectory().toString(), "Energy.png", 1024);
+			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/Inventory.png"), getDirectory().toString(), "Inventory.png", 1024);
+			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/hotkey1.png"), getDirectory().toString(), "hotkey1.png", 1024);
+			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/hotkey2.png"), getDirectory().toString(), "hotkey2.png", 1024);
+			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/hotkey3.png"), getDirectory().toString(), "hotkey3.png", 1024);
+			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/hotkey4.png"), getDirectory().toString(), "hotkey4.png", 1024);
+			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/hotkey5.png"), getDirectory().toString(), "hotkey5.png", 1024);
+			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/hotkey6.png"), getDirectory().toString(), "hotkey6.png", 1024);
 			
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -70,6 +67,13 @@ public class Test extends EntityGame{
 		getResourcesManager().addImage("BaseHP", new ImageIcon("C:/manatee/BaseHP.png").getImage());
 		getResourcesManager().addImage("PlayerHP", new ImageIcon("C:/manatee/PlayerHP.png").getImage());
 		getResourcesManager().addImage("Energy", new ImageIcon("C:/manatee/Energy.png").getImage());
+		getResourcesManager().addImage("Inventory", new ImageIcon("C:/manatee/Inventory.png").getImage());
+		getResourcesManager().addImage("hotkey1", new ImageIcon("C:/manatee/hotkey1.png").getImage());
+		getResourcesManager().addImage("hotkey2", new ImageIcon("C:/manatee/hotkey2.png").getImage());
+		getResourcesManager().addImage("hotkey3", new ImageIcon("C:/manatee/hotkey3.png").getImage());
+		getResourcesManager().addImage("hotkey4", new ImageIcon("C:/manatee/hotkey4.png").getImage());
+		getResourcesManager().addImage("hotkey5", new ImageIcon("C:/manatee/hotkey5.png").getImage());
+		getResourcesManager().addImage("hotkey6", new ImageIcon("C:/manatee/hotkey6.png").getImage());
 		
 		// sprite resources
 		getResourcesManager().addSprite("BoxSprite", new Sprite("BoxSprite",
@@ -85,73 +89,10 @@ public class Test extends EntityGame{
 																new Point(0, 0), 
 																12));
 		
-		//System.out.println("Image?"+Toolkit.getDefaultToolkit().getImage("C:/manatee/boxSprit.jpg")==null? "null":"not null");
-		// music resources
-		//getResourcesManager().addSound("BoxSound", new Sound(null, new File("C:/manatee/BoxSound.wav"), 400));
-		//System.out.println(getResourcesManager().getSoundResources().size());
-		
-		// testScene
-		LinkedList<Entity> Map1 = new LinkedList<Entity>();
-		
-		// map1
-		//setCameraSize(400, 320);
-		Random randomGenerator = new Random();
-		
-		Player p1 = new Player("Player1", 100, 300, 28, 31, 3, getResourcesManager().getSpriteResources().get("BoxSprite"), this);
-		//Monster Angel = new Monster("Angel", randomGenerator.nextInt(9)+1, 2, 10, getResourcesManager().getImageResources().get("Angel"), 0, 0, 35, 50);
-		//UITest uTest = new UITest("Test", 0, 100, 100, 100, "Balmung Test");
-		SpawnPoint sp1 = new SpawnPoint("SpawnPoint 1", getResourcesManager().getImageResources().get("SpawnPoint"), 1000, 10, 0, 0, 80, 80),
-				   sp2 = new SpawnPoint("SpawnPoint 2", getResourcesManager().getImageResources().get("SpawnPoint"), 1000, 10, 320, 0, 80, 80),
-				   sp3 = new SpawnPoint("SpawnPoint 3", getResourcesManager().getImageResources().get("SpawnPoint"), 1000, 10, 720, 0, 80, 80);
-		//sp1.setSpawning(true);
-		//sp2.setSpawning(true);
-		//sp3.setSpawning(true);
-		
-		
-		
-		Protal protal = new Protal("Protal", getResourcesManager().getImageResources().get("Protal"), 303, 400, 194, 192, 100, 3, 1000);
-		Timer waveTimer = new Timer("waveTimer", getResourcesManager().getImageResources().get("WaveTimer"), 10, 10, 100, 30, 25, 22, 60000);
-		
-		PlayerUI pui = new PlayerUI(this, p1, protal);
-		
-		MiniMap minimap = new MiniMap("minimap", 5, 380, 90, 90, 800, 600);
-		WaveController wc = new WaveController("controller", waveTimer);
-		wc.addSpawnPoint(sp1);
-		wc.addSpawnPoint(sp2);
-		wc.addSpawnPoint(sp3);
-		BufferedImage groundSheet;
-		try {
-			groundSheet = ImageIO.read(new File("C:/manatee/tileSheet.png"));
-			for(int row = 0; row < 20; row++)
-				for(int col = 0; col < 25; col++) {
-					int x, y=0;
-					if((x = randomGenerator.nextInt(24)) > 4) {
-						y = x/5;
-						x -= y*5;
-					}
-					Image img = Toolkit.getDefaultToolkit().createImage(groundSheet.getSubimage(x*32, y*32, 32, 32).getSource());
-					ImageEntity tile = new ImageEntity("ground("+row+","+col+")", img, 32, 32, col*32, row*32);
-					Map1.add(tile);
-				}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}//getResourcesManager().getImageResources().get("Gound");
-		
-		Map1.add(wc);
-		Map1.add(protal);
-		Map1.add(p1);
-		//Map1.add(Angel);
-		//Map1.add(uTest);
-		Map1.add(sp1);
-		Map1.add(sp2);
-		Map1.add(sp3);
-		Map1.add(waveTimer);
-		Map1.add(pui);
-		Map1.add(minimap);
 		
 		scenes = new LinkedList<LinkedList<Entity>>();
-		scenes.add(Map1);
+		Map1 m1 = new Map1(this);
+		scenes.add(m1.getMap());
 		
 		// map keys
 		inputHandler.addInput(KeyEvent.VK_W, "UP");
