@@ -82,6 +82,8 @@ public class Bullet implements Entity {
 			else {
 				if(!explosion) {
 					((Monster) target).injur(dmg);
+					DmgDisplay dp = new DmgDisplay("bulletDmg", "-"+dmg, 50, bound.x, bound.y, 1, 1);
+					eg.addToCurrentScene(dp);
 					explosionTime += new Date().getTime();
 				}
 				//eg.removeFromCurrentScene(this);

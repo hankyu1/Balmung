@@ -29,7 +29,7 @@ public class Map1 {
 		
 		
 		Protal protal = new Protal("Protal", eg.getResourcesManager().getImageResources().get("Protal"), 415, 576, 194, 192, 100, 3, 1000);
-		Timer waveTimer = new Timer("waveTimer", eg.getResourcesManager().getImageResources().get("WaveTimer"), 10, 10, 100, 30, 25, 22, 60000);
+		Timer waveTimer = new Timer("waveTimer", eg.getResourcesManager().getImageResources().get("WaveTimer"), 10, 10, 100, 30, 25, 22, 1000);
 		
 		PlayerUI pui = new PlayerUI(eg, p1, protal);
 		
