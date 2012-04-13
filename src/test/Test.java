@@ -48,6 +48,7 @@ public class Test extends EntityGame{
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/hotkey4.png"), getDirectory().toString(), "hotkey4.png", 1024);
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/hotkey5.png"), getDirectory().toString(), "hotkey5.png", 1024);
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/hotkey6.png"), getDirectory().toString(), "hotkey6.png", 1024);
+			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/fontSheet.png"), getDirectory().toString(), "fontSheet.png", 1024);
 			
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -74,6 +75,7 @@ public class Test extends EntityGame{
 		getResourcesManager().addImage("hotkey4", new ImageIcon("C:/manatee/hotkey4.png").getImage());
 		getResourcesManager().addImage("hotkey5", new ImageIcon("C:/manatee/hotkey5.png").getImage());
 		getResourcesManager().addImage("hotkey6", new ImageIcon("C:/manatee/hotkey6.png").getImage());
+		getResourcesManager().addImage("fontSheet", new ImageIcon("C:/manatee/fontSheet.png").getImage());
 		
 		// sprite resources
 		getResourcesManager().addSprite("BoxSprite", new Sprite("BoxSprite",
