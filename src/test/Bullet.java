@@ -31,7 +31,7 @@ public class Bullet implements Entity {
 		this.lifeTime = lifeTime;
 		bound = new Rectangle(x-width/2,y-height/2,width,height);
 		explosion = false;
-		explosionTime = 1000;
+		explosionTime = 500;
 	}
 	
 	@Override
@@ -51,7 +51,12 @@ public class Bullet implements Entity {
 		// TODO Auto-generated method stub
 		
 		if(explosionSheet == null)
-			explosionSheet = eg.getResourcesManager().getSpriteResources().get("BulletExplosion");
+			try {
+				explosionSheet = (Sprite)eg.getResourcesManager().getSpriteResources().get("BulletExplosion").clone();
+			} catch (CloneNotSupportedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		
 		Entity target = null;
 		

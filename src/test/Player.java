@@ -162,14 +162,14 @@ public class Player implements Entity {
 				try {
 					if(currentGun == handgun) {
 						Bullet bullet = new Bullet("Bullet"+Math.random(), eg.getResourcesManager().getImageResources().get("HandgunBullet"), gunDmg[0], 1, rotation, 7, 
-								getCenter().x + (int)(Math.cos(Math.toRadians(rotation))*30), 
+								getCenter().x + (int)(Math.cos(Math.toRadians(rotation))*30+10), 
 								getCenter().y + (int)(Math.sin(Math.toRadians(rotation))*30), 
 								16, 16);
 						eg.addToCurrentScene(bullet);
 					}
 					else if(currentGun == machinegun) {
 						Bullet bullet = new Bullet("Bullet"+Math.random(), eg.getResourcesManager().getImageResources().get("MachinegunBullet"), gunDmg[1], 1, rotation, 7, 
-								getCenter().x + (int)(Math.cos(Math.toRadians(rotation))*30), 
+								getCenter().x + (int)(Math.cos(Math.toRadians(rotation))*30+10), 
 								getCenter().y + (int)(Math.sin(Math.toRadians(rotation))*30), 
 								16, 16);
 						eg.addToCurrentScene(bullet);
@@ -178,7 +178,7 @@ public class Player implements Entity {
 						// shot gun makes a lot of bullets ._./
 						for(int i = 0; i < 23; i++) {
 							Bullet bullet = new Bullet("Bullet"+Math.random(), eg.getResourcesManager().getImageResources().get("ShotgunBullet"), gunDmg[2], 1, rotation+72-i*7, 5, 
-									getCenter().x + (int)(Math.cos(Math.toRadians(rotation))*30), 
+									getCenter().x + (int)(Math.cos(Math.toRadians(rotation))*30+10), 
 									getCenter().y + (int)(Math.sin(Math.toRadians(rotation))*30), 
 									16, 16);
 							eg.addToCurrentScene(bullet);

@@ -7,7 +7,7 @@ import java.awt.Point;
 import java.awt.image.ImageObserver;
 import java.util.Date;
 
-public class Sprite {
+public class Sprite implements Cloneable{
 
 	private long duration;
 	private int frameNum;
@@ -32,6 +32,11 @@ public class Sprite {
 		this.SpriteSheet = SpriteSheet;
 		frameCount = 0;
 	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
+
 	
 	public void drawSpriteFrame(Graphics2D g, Point position, ImageObserver observer) {
 		
