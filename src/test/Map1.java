@@ -22,7 +22,7 @@ public class Map1 {
 		
 		Random randomGenerator = new Random();
 		
-		Player p1 = new Player("Player1", 100, 300, 28, 31, 3, eg.getResourcesManager().getSpriteResources().get("BoxSprite"), eg);
+		Player p1 = new Player("Player1", 100, 300, 41, 70, 3, eg.getResourcesManager().getImageResources().get("Player"), eg);
 		SpawnPoint sp1 = new SpawnPoint("SpawnPoint 1", eg.getResourcesManager().getImageResources().get("SpawnPoint"), 1000, 10, 0, 0, 80, 80),
 				   sp2 = new SpawnPoint("SpawnPoint 2", eg.getResourcesManager().getImageResources().get("SpawnPoint"), 1000, 10, 320, 0, 80, 80),
 				   sp3 = new SpawnPoint("SpawnPoint 3", eg.getResourcesManager().getImageResources().get("SpawnPoint"), 1000, 10, 720, 0, 80, 80);

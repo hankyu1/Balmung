@@ -1,6 +1,7 @@
 package test;
 
 import java.awt.Graphics2D;
+import java.awt.Image;
 
 import java.awt.Point;
 
@@ -15,34 +16,46 @@ import entityGame.Sprite;
 
 public class Player implements Entity {
 
-	protected Sprite spriteSheet;
-	protected String id;
-	protected Rectangle bound;
+	//protected Sprite spriteSheet;
+	private String id;
+	private Rectangle bound;
 	//protected LinkedList<LinkedList<Entity>> list; 
-	protected int velocity,
-				  handgun = 0, machinegun = 1, shotgun = 2,
-				  currentGun = handgun;
+	private Image img;
+	private Image[] gunsImg;
+	private int velocity,
+				MissileGun = 0, machinegun = 1, shotgun = 2,
+				currentGun = MissileGun;
 	private double rotation = 0;
-	private long[] fireRate = {800, 100, 1200};
+	private long[] fireRate = {500, 100, 1000};
 	private long currentFireRate = fireRate[currentGun],
 				 currentTime = 0, nextTime = 0,
 				 HPRegTime = 3000, nextHpReg = 0, EnergyRegTime = 1000, nextEnReg = 0,
 				 abilityTime = 1000, nextAbilityTime = 0;
-	private int[] gunDmg = {6, 3, 4},
+	private int[] gunDmg = {10, 3, 3},
 				  gunEnergy = {10, 15, 20};
 	private int HP = 100, HPMax = 100, Energy = 100, EnMax = 100;
 	
 	
-	public Player(String id, int x, int y, int w, int h, int velocity, Sprite spriteSheet, EntityGame eg) {
+	public Player(String id, int x, int y, int w, int h, int velocity, Image img, EntityGame eg) {
 		this.id = id;
 		bound = new Rectangle(x, y, w, h);
 		this.velocity = velocity;
+		this.img = img;
+		
+		gunsImg = new Image[3];
+		
+		gunsImg[0] = eg.getResourcesManager().getImageResources().get("MissileGun");
+		gunsImg[1] = eg.getResourcesManager().getImageResources().get("MachineGun");
+		gunsImg[2] = eg.getResourcesManager().getImageResources().get("ShotGun");
+		
+		/*
 		try {
 			this.spriteSheet = spriteSheet;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
 		//list = new LinkedList<LinkedList<Entity>>();
 	}
 	
@@ -143,8 +156,8 @@ public class Player implements Entity {
 			bound.x += velocity;
 		// guns
 		if(eg.getInputHandler().getMap().get(KeyEvent.VK_1).isPressed()) {
-			currentFireRate = fireRate[handgun];
-			currentGun = handgun;
+			currentFireRate = fireRate[MissileGun];
+			currentGun = MissileGun;
 		}
 		if(eg.getInputHandler().getMap().get(KeyEvent.VK_2).isPressed()) {
 			currentFireRate = fireRate[machinegun];
@@ -160,26 +173,26 @@ public class Player implements Entity {
 			
 			if(currentTime >= nextTime) {
 				try {
-					if(currentGun == handgun) {
-						Bullet bullet = new Bullet("Bullet"+Math.random(), eg.getResourcesManager().getImageResources().get("HandgunBullet"), gunDmg[0], 1, rotation, 7, 
-								getCenter().x + (int)(Math.cos(Math.toRadians(rotation))*30+10), 
-								getCenter().y + (int)(Math.sin(Math.toRadians(rotation))*30), 
-								16, 16);
+					if(currentGun == MissileGun) {
+						Bullet bullet = new Bullet("Bullet"+Math.random(), eg.getResourcesManager().getImageResources().get("Missile"), gunDmg[0], 1, rotation, 7, 
+								getCenter().x + (int)(Math.cos(Math.toRadians(rotation+20))*70), 
+								getCenter().y + (int)(Math.sin(Math.toRadians(rotation+20))*70), 
+								50, 15);
 						eg.addToCurrentScene(bullet);
 					}
 					else if(currentGun == machinegun) {
 						Bullet bullet = new Bullet("Bullet"+Math.random(), eg.getResourcesManager().getImageResources().get("MachinegunBullet"), gunDmg[1], 1, rotation, 7, 
-								getCenter().x + (int)(Math.cos(Math.toRadians(rotation))*30+10), 
-								getCenter().y + (int)(Math.sin(Math.toRadians(rotation))*30), 
-								16, 16);
+								getCenter().x + (int)(Math.cos(Math.toRadians(rotation+26))*60), 
+								getCenter().y + (int)(Math.sin(Math.toRadians(rotation+26))*60), 
+								18, 12);
 						eg.addToCurrentScene(bullet);
 					}
 					else if(currentGun == shotgun) {
 						// shot gun makes a lot of bullets ._./
 						for(int i = 0; i < 23; i++) {
 							Bullet bullet = new Bullet("Bullet"+Math.random(), eg.getResourcesManager().getImageResources().get("ShotgunBullet"), gunDmg[2], 1, rotation+72-i*7, 5, 
-									getCenter().x + (int)(Math.cos(Math.toRadians(rotation))*30+10), 
-									getCenter().y + (int)(Math.sin(Math.toRadians(rotation))*30), 
+									getCenter().x + (int)(Math.cos(Math.toRadians(rotation+20))*70), 
+									getCenter().y + (int)(Math.sin(Math.toRadians(rotation+20))*70), 
 									16, 16);
 							eg.addToCurrentScene(bullet);
 						}
@@ -211,8 +224,22 @@ public class Player implements Entity {
 		//System.out.println("ASDF");
 		
 		g.rotate(Math.toRadians(rotation), bound.x+bound.width/2, bound.y+bound.height/2);
-		spriteSheet.drawSpriteFrame(g, new Point(bound.x, bound.y), eg.getCanvas());
+		//spriteSheet.drawSpriteFrame(g, new Point(bound.x, bound.y), eg.getCanvas());
+		switch(currentGun) {
+			case 0:
+				g.drawImage(gunsImg[currentGun], bound.x-20, bound.y+40, eg.getCanvas());
+				break;
+			case 1:
+				g.drawImage(gunsImg[currentGun], bound.x+20, bound.y+40, eg.getCanvas());
+				break;
+			case 2:
+				g.drawImage(gunsImg[currentGun], bound.x-15, bound.y+40, eg.getCanvas());
+				break;
+		}
+		
+		g.drawImage(img, bound.x, bound.y, eg.getCanvas());
 		g.rotate(-Math.toRadians(rotation), bound.x+bound.width/2, bound.y+bound.height/2);
+		g.drawRect(getCenter().x, getCenter().y, 10, 10);
 	}
 
 	@Override

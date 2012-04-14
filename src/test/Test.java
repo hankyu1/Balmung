@@ -28,9 +28,8 @@ public class Test extends EntityGame{
 		setDirectory("C:\\manatee");
 		try {
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/tileSheet.png"), getDirectory().toString(), "tileSheet.png", 1024);
-			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/boxSprite.jpg"), getDirectory().toString(), "boxSprite.jpg", 1024);
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/Angel.png"), getDirectory().toString(), "Angel.png", 1024);
-			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/handgunBullet.png"), getDirectory().toString(), "handgunBullet.png", 1024);
+			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/missile.png"), getDirectory().toString(), "missile.png", 1024);
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/machinegunBullet.png"), getDirectory().toString(), "machinegunBullet.png", 1024);
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/shotgunBullet.png"), getDirectory().toString(), "shotgunBullet.png", 1024);
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/MonsterSpawnPoint.png"), getDirectory().toString(), "SpawnPoint.png", 1024);
@@ -49,6 +48,14 @@ public class Test extends EntityGame{
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/hotkey5.png"), getDirectory().toString(), "hotkey5.png", 1024);
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/hotkey6.png"), getDirectory().toString(), "hotkey6.png", 1024);
 			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/fontSheet.png"), getDirectory().toString(), "fontSheet.png", 1024);
+			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/Player.png"), getDirectory().toString(), "Player.png", 1024);
+			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/missile%20gun.png"), getDirectory().toString(), "MissileGun.png", 1024);
+			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/missile.png"), getDirectory().toString(), "Missile.png", 1024);
+			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/MachineGun.png"), getDirectory().toString(), "MachineGun.png", 1024);
+			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/MachineGunBullet.png"), getDirectory().toString(), "MachineGunBullet.png", 1024);
+			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/ShotGun.png"), getDirectory().toString(), "ShotGun.png", 1024);
+			getResourcesManager().downloadResources(false, new URL("http://dl.dropbox.com/u/27745240/applet/img/BulletExplosion.png"), getDirectory().toString(), "BulletExplosion.png", 1024);
+			
 			
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -57,7 +64,7 @@ public class Test extends EntityGame{
 		
 		// image resources
 		getResourcesManager().addImage("Ground", new ImageIcon("C:/manatee/tileSheet.png").getImage());
-		getResourcesManager().addImage("HandgunBullet", new ImageIcon("C:/manatee/handgunBullet.png").getImage());
+		getResourcesManager().addImage("missile", new ImageIcon("C:/manatee/missile.png").getImage());
 		getResourcesManager().addImage("Angel", new ImageIcon("C:/manatee/Angel.png").getImage());
 		getResourcesManager().addImage("MachinegunBullet", new ImageIcon("C:/manatee/machinegunBullet.png").getImage());
 		getResourcesManager().addImage("ShotgunBullet", new ImageIcon("C:/manatee/shotgunBullet.png").getImage());
@@ -76,18 +83,25 @@ public class Test extends EntityGame{
 		getResourcesManager().addImage("hotkey5", new ImageIcon("C:/manatee/hotkey5.png").getImage());
 		getResourcesManager().addImage("hotkey6", new ImageIcon("C:/manatee/hotkey6.png").getImage());
 		getResourcesManager().addImage("fontSheet", new ImageIcon("C:/manatee/fontSheet.png").getImage());
+		getResourcesManager().addImage("Player", new ImageIcon("C:/manatee/Player.png").getImage());
+		getResourcesManager().addImage("MissileGun", new ImageIcon("C:/manatee/MissileGun.png").getImage());
+		getResourcesManager().addImage("Missile", new ImageIcon("C:/manatee/Missile.png").getImage());
+		getResourcesManager().addImage("MachineGun", new ImageIcon("C:/manatee/MachineGun.png").getImage());
+		getResourcesManager().addImage("MachineGunBullet", new ImageIcon("C:/manatee/MachineGunBullet.png").getImage());
+		getResourcesManager().addImage("ShotGun", new ImageIcon("C:/manatee/ShotGun.png").getImage());
 		
 		// sprite resources
+		/*
 		getResourcesManager().addSprite("BoxSprite", new Sprite("BoxSprite",
 																1000,
 																new ImageIcon("C:/manatee/boxSprite.jpg").getImage(), 
 																new Dimension(28, 31), 
 																new Point(0, 0), 
-																2));
+																2));*/
 		getResourcesManager().addSprite("BulletExplosion", new Sprite("BulletExplosion",
 																50,
-																new ImageIcon("C:/manatee/BulletExposion.png").getImage(), 
-																new Dimension(30, 30), 
+																new ImageIcon("C:/manatee/BulletExplosion.png").getImage(), 
+																new Dimension(60, 60), 
 																new Point(0, 0), 
 																12));
 		

@@ -105,7 +105,7 @@ public class Bullet implements Entity {
 		// TODO Auto-generated method stub
 		if(explosion) {
 			long currentTime = new Date().getTime();
-			explosionSheet.drawSpriteFrame(g, new Point(bound.x, bound.y), eg.getCanvas());
+			explosionSheet.drawSpriteFrame(g, new Point(bound.x-30, bound.y-25), eg.getCanvas());
 			//System.out.println(currentTime +", " + explosionTime);
 			if(currentTime > explosionTime)
 				eg.removeFromCurrentScene(this);
